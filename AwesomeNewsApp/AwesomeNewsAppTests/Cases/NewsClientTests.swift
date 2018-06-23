@@ -25,8 +25,12 @@ class NewsClientTests: XCTestCase {
         super.tearDown()
     }
     
-    func testHasApiKey() {
+    func testApiKeyIsNotNil() {
         XCTAssertNotNil(newsClient.apiKey)
     }
     
+    func testHeadlinesUrlIsCorrect() {
+        let headlinesURL = newsClient.getEndpointURL(NewsClient.Endpoints.headlines)
+        XCTAssertEqual(headlinesURL?.absoluteString, "https://newsapi.org/v2/top-headlines")
+    }
 }

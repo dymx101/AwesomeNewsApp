@@ -10,9 +10,22 @@ import Foundation
 
 class NewsClient {
     
+    enum Endpoints: String {
+        case headlines = "v2/top-headlines"
+        case everything = "v2/everything"
+        case sources = "v2/sources"
+    }
+    
     enum Constants: String {
         case apiKey = "28581b5630064b359aac9806bd9ed0b5"
+        case baseURL = "https://newsapi.org"
     }
     
     let apiKey = Constants.apiKey
+    
+    func getEndpointURL(_ endpoint: Endpoints) -> URL? {
+        var url = URL(string: Constants.baseURL.rawValue)
+        url?.appendPathComponent(endpoint.rawValue)
+        return url
+    }
 }
