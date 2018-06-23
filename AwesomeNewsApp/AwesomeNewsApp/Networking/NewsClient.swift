@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Alamofire
+import AlamofireObjectMapper
 
 class NewsClient {
     
@@ -23,9 +25,18 @@ class NewsClient {
     
     let apiKey = Constants.apiKey
     
-    func getEndpointURL(_ endpoint: Endpoints) -> URL? {
+    func getURL(endpoint: Endpoints) -> URL? {
         var url = URL(string: Constants.baseURL.rawValue)
         url?.appendPathComponent(endpoint.rawValue)
         return url
+    }
+    
+    func loadHeaderlines(endpoint: Endpoints, completion:@escaping (NewsList?)->Void) {
+        
+        guard let url = getURL(endpoint: .headlines) else {return}
+        
+        Alamofire.request(url).responseObject { (respObject: DataResponse<NewsList>) in
+            completion(respObject.result.value)
+        }
     }
 }

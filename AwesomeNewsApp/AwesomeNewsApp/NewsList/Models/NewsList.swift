@@ -13,6 +13,8 @@ class NewsList: Mappable {
     
     var articles: [NewsItem]?
     var status: String?
+    var code: String?
+    var message: String?
     var totalResults: Int?
     
     required init?(map: Map) {
@@ -22,6 +24,8 @@ class NewsList: Mappable {
     func mapping(map: Map) {
         articles <- map["articles"]
         status <- map["status"]
+        code <- map["code"]
+        message <- map["message"]
         totalResults <- map["totalResults"]
     }
 }
