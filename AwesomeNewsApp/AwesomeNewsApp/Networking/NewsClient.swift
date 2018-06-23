@@ -23,7 +23,7 @@ class NewsClient {
         case baseURL = "https://newsapi.org"
     }
     
-    let apiKey = Constants.apiKey
+    static let apiKey = Constants.apiKey.rawValue
     
     func getURL(endpoint: Endpoints) -> URL? {
         var url = URL(string: Constants.baseURL.rawValue)
@@ -31,9 +31,19 @@ class NewsClient {
         return url
     }
     
-    func loadHeaderlines(endpoint: Endpoints, completion:@escaping (NewsList?)->Void) {
+    func getHeadlinesURL(parameters: HeadlinesRequestParameters) -> URL? {
+        guard var urlString = getURL(endpoint: .headlines)?.absoluteString else {
+            return nil
+        }
+
+        urlString = urlString + "?" + parameters.paramString()
         
-        guard let url = getURL(endpoint: .headlines) else {return}
+        return URL(string: urlString)
+    }
+    
+    func loadHeaderlines(endpoint: Endpoints, params: HeadlinesRequestParameters, completion:@escaping (NewsList?)->Void) {
+        
+        guard let url = getHeadlinesURL(parameters: params) else {return}
         
         Alamofire.request(url).responseObject { (respObject: DataResponse<NewsList>) in
             completion(respObject.result.value)

@@ -23,6 +23,20 @@ class HeadlinesRequestParametersTest: XCTestCase {
         super.tearDown()
     }
     
+    func testConvenienceInitializer() {
+        // Given
+        parameters = HeadlinesRequestParameters(country: "us", category: "business", sources: "cnn", keywords: "bitcoin", apiKey: "fakeKey", pageSize: 100)
+        
+        // Then
+        XCTAssertEqual(parameters.country, "us")
+        XCTAssertEqual(parameters.category, "business")
+        XCTAssertEqual(parameters.sources, "cnn")
+        XCTAssertEqual(parameters.keywords, "bitcoin")
+        XCTAssertEqual(parameters.apiKey, "fakeKey")
+        XCTAssertEqual(parameters.pageSize, 100)
+        XCTAssertEqual(parameters.page, 0)
+    }
+    
     func testGoToPageTen() {
         parameters.gotoPage(10)
         XCTAssertEqual(parameters.page, 10)
@@ -57,7 +71,7 @@ class HeadlinesRequestParametersTest: XCTestCase {
     }
     
     func testIsReadyIfHasCountryValue() {
-        parameters.country = "en"
+        parameters.country = "us"
         XCTAssertTrue(parameters.isReady())
     }
     
@@ -71,7 +85,7 @@ class HeadlinesRequestParametersTest: XCTestCase {
     }
     
     func testIsNotReadyIfHasBothCountryAndSourcesValues() {
-        parameters.country = "en"
+        parameters.country = "us"
         parameters.sources = "cnn"
         XCTAssertFalse(parameters.isReady())
     }
@@ -80,5 +94,19 @@ class HeadlinesRequestParametersTest: XCTestCase {
         parameters.category = HeadlinesRequestParameters.Categories.business.rawValue
         parameters.sources = "cnn"
         XCTAssertFalse(parameters.isReady())
+    }
+    
+    func testGetParamStrings() {
+        //Given
+        parameters.country = "us"
+        parameters.category = HeadlinesRequestParameters.Categories.business.rawValue
+        parameters.keywords = "bitcoin"
+        parameters.apiKey = NewsClient.apiKey
+        
+        // When
+        let paramString = parameters.paramString()
+        
+        //Then
+        XCTAssertEqual(paramString, "country=us&category=business&q=bitcoin&apiKey=\(NewsClient.apiKey)&pageSize=20&page=0")
     }
 }
