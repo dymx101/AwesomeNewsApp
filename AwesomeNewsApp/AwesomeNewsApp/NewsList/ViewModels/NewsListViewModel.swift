@@ -26,14 +26,14 @@ class NewsListViewModel {
     
     init() {
         newsClient = NewsClient()
-        paramters = HeadlinesRequestParameters(country: HeadlinesRequestParameters.Countries.cn.rawValue, apiKey: NewsClient.apiKey)
+        paramters = HeadlinesRequestParameters(country: HeadlinesRequestParameters.Countries.us.rawValue, apiKey: NewsClient.apiKey)
     }
     
     
     private func loadNewsListData(completion:@escaping (NewsList?) -> Void) {
         newsClient.loadHeaderlines(params: paramters) { [weak self] (newsList) in
             
-            if (self?.paramters.page == 0) {
+            if (self?.paramters.page == HeadlinesRequestParameters.Constants.firstPageIndex) {
                 self?.newsList = newsList
             } else if let articles = newsList?.articles {
                 self?.newsList?.articles?.append(contentsOf: articles)
@@ -47,6 +47,10 @@ class NewsListViewModel {
             
             completion(newsList)
         }
+    }
+    
+    func newsCount() -> Int {
+        return newsList?.articles?.count ?? 0
     }
     
     /// Load more news data from api

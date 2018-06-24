@@ -13,6 +13,7 @@ import RxCocoa
 class NewsListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    let refresher: UIRefreshControl = UIRefreshControl()
     
     var viewModel = NewsListViewModel()
     
@@ -21,19 +22,51 @@ class NewsListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+        title = "Awesome News"
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        refresher.addTarget(self, action: #selector(NewsListViewController.reloadNews), for: .valueChanged)
+        
+        tableView.delegate = self
+        tableView.addSubview(refresher)
+        tableView.rowHeight = 150
+        tableView.register(UINib(nibName: NewsListItemCell.theID, bundle: nil), forCellReuseIdentifier: NewsListItemCell.theID)
     
-        viewModel.reloadNews { _ in }
-        
         bindViewModel(viewModel: viewModel)
+        
+        reloadNews()
+        refresher.beginRefreshing()
+        
+//        _ = tableView.rx.willDisplayCell.subscribe(onNext: { (cell, indexpath) in
+//            if indexpath.row == self.viewModel.newsCount() - 1 {
+//                self.loadMoreNews()
+//            }
+//        })
     }
     
     func bindViewModel(viewModel: NewsListViewModel) {
-        viewModel.newsItemViewModelsObservable.bind(to: tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { (_, model: NewsItemViewModel, cell: UITableViewCell) in
-                                                        cell.textLabel?.text = model.title
+        viewModel.newsItemViewModelsObservable.bind(to: tableView.rx.items(cellIdentifier: NewsListItemCell.theID, cellType: NewsListItemCell.self)) { (_, model: NewsItemViewModel, cell: NewsListItemCell) in
+                                                        cell.titleLabel?.text = model.title
             }.disposed(by: disposeBag)
+    }
+    
+    @objc fileprivate func reloadNews() {
+        viewModel.reloadNews {
+            [weak self] _ in self?.refresher.endRefreshing()
+        }
+    }
+    
+    @objc fileprivate func loadMoreNews() {
+        viewModel.loadMoreNews {
+            [weak self] _ in self?.refresher.endRefreshing()
+        }
+    }
+}
+
+extension NewsListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == self.viewModel.newsCount() - 1 {
+            self.loadMoreNews()
+        }
     }
 }
 

@@ -36,20 +36,25 @@ class HeadlinesRequestParameters {
         case apiKey = "apiKey"
     }
     
+    struct Constants {
+        static let firstPageIndex = 1
+        static let defaultPageSize = 10
+    }
+    
     var country: String = ""
     var category: String = ""
     var sources: String = ""
     var keywords: String = ""
     var apiKey: String = ""
     
-    var pageSize: Int = 20
+    var pageSize: Int = Constants.defaultPageSize
     
-    private var _page: Int = 0
+    private var _page: Int = Constants.firstPageIndex
     var page: Int {
         return _page
     }
     
-    convenience init(country: String? = nil, category: String? = nil, sources: String? = nil, keywords: String? = nil, apiKey: String? = nil, pageSize: Int = 20) {
+    convenience init(country: String? = nil, category: String? = nil, sources: String? = nil, keywords: String? = nil, apiKey: String? = nil, pageSize: Int = Constants.defaultPageSize) {
         self.init()
         
         self.country = country ?? ""
@@ -77,11 +82,11 @@ class HeadlinesRequestParameters {
     }
     
     func gotoFirstPage() {
-        _page = 0
+        _page = Constants.firstPageIndex
     }
     
     func gotoPrevousPage() {
-        if (_page > 0) {
+        if (_page > Constants.firstPageIndex) {
             _page -= 1
         }
     }

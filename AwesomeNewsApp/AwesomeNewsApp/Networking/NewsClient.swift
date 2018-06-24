@@ -19,7 +19,8 @@ class NewsClient {
     }
     
     enum Constants: String {
-        case apiKey = "28581b5630064b359aac9806bd9ed0b5"
+//        case apiKey = "28581b5630064b359aac9806bd9ed0b5"
+        case apiKey = "4a9eadd464ee4c67809a4a50864b1c9e"
         case baseURL = "https://newsapi.org"
     }
     

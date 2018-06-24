@@ -34,7 +34,7 @@ class HeadlinesRequestParametersTest: XCTestCase {
         XCTAssertEqual(parameters.keywords, "bitcoin")
         XCTAssertEqual(parameters.apiKey, "fakeKey")
         XCTAssertEqual(parameters.pageSize, 100)
-        XCTAssertEqual(parameters.page, 0)
+        XCTAssertEqual(parameters.page, 1)
     }
     
     func testGoToPageTen() {
@@ -45,7 +45,7 @@ class HeadlinesRequestParametersTest: XCTestCase {
     func testGoToFirstPage() {
         parameters.gotoPage(10)
         parameters.gotoFirstPage()
-        XCTAssertEqual(parameters.page, 0)
+        XCTAssertEqual(parameters.page, 1)
     }
     
     func testGoToNextPage() {
@@ -107,6 +107,6 @@ class HeadlinesRequestParametersTest: XCTestCase {
         let paramString = parameters.paramString()
         
         //Then
-        XCTAssertEqual(paramString, "country=us&category=business&q=bitcoin&apiKey=\(NewsClient.apiKey)&pageSize=20&page=0")
+        XCTAssertEqual(paramString, "country=us&category=business&q=bitcoin&apiKey=\(NewsClient.apiKey)&pageSize=10&page=1")
     }
 }
