@@ -10,6 +10,12 @@ import Foundation
 
 class HeadlinesRequestParameters {
     
+    enum Countries: String {
+        case us = "us"
+        case cn = "cn"
+        case sg = "sg"
+    }
+    
     enum Categories: String {
         case business = "business"
         case entertainment = "entertainment"

@@ -41,7 +41,7 @@ class NewsClient {
         return URL(string: urlString)
     }
     
-    func loadHeaderlines(endpoint: Endpoints, params: HeadlinesRequestParameters, completion:@escaping (NewsList?)->Void) {
+    func loadHeaderlines(params: HeadlinesRequestParameters, completion:@escaping (NewsList?)->Void) {
         
         guard let url = getHeadlinesURL(parameters: params) else {return}
         

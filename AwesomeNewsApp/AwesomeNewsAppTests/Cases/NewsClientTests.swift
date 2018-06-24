@@ -38,7 +38,7 @@ class NewsClientTests: XCTestCase {
     }
     
     // FIXME: This test should be move to integration tests later
-    func _testLoadHeaderlinesFailsIfAPIKeyIsMissing() {
+    func testLoadHeaderlinesFailsIfAPIKeyIsMissing() {
         
         let expectation = self.expectation(description: "Expect load header lines has data")
         
@@ -46,7 +46,7 @@ class NewsClientTests: XCTestCase {
         let parameters = HeadlinesRequestParameters()
         
         // When
-        newsClient.loadHeaderlines(endpoint: .headlines, params: parameters) { newsList in
+        newsClient.loadHeaderlines(params: parameters) { newsList in
             expectation.fulfill()
             
             // Then
@@ -60,7 +60,7 @@ class NewsClientTests: XCTestCase {
     }
     
     // FIXME: This test should be move to integration tests later
-    func _testLoadHeaderlinesFailsIfCriteriasMissing() {
+    func testLoadHeaderlinesFailsIfCriteriasMissing() {
         
         let expectation = self.expectation(description: "Expect load header lines has data")
         
@@ -68,7 +68,7 @@ class NewsClientTests: XCTestCase {
         let parameters = HeadlinesRequestParameters(apiKey: NewsClient.apiKey)
         
         // When
-        newsClient.loadHeaderlines(endpoint: .headlines, params: parameters) { newsList in
+        newsClient.loadHeaderlines(params: parameters) { newsList in
             expectation.fulfill()
             
             // {"status":"error","code":"parametersMissing","message":"Required parameters are missing. Please set any of the following parameters and try again: sources, q, language, country, category."}
@@ -89,10 +89,10 @@ class NewsClientTests: XCTestCase {
         let expectation = self.expectation(description: "Expect load header lines has data")
         
         // Given
-        let parameters = HeadlinesRequestParameters(country:"us", apiKey: NewsClient.apiKey)
+        let parameters = HeadlinesRequestParameters(country:HeadlinesRequestParameters.Countries.us.rawValue, apiKey: NewsClient.apiKey)
         
         // When
-        newsClient.loadHeaderlines(endpoint: .headlines, params: parameters) { newsList in
+        newsClient.loadHeaderlines(params: parameters) { newsList in
             expectation.fulfill()
             
             // Then
