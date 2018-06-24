@@ -9,6 +9,9 @@ PODS:
     - NVActivityIndicatorView/Presenter (= 4.1.1)
   - NVActivityIndicatorView/Presenter (4.1.1)
   - ObjectMapper (3.3.0)
+  - RxCocoa (4.2.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.2.0)
   - SnapKit (4.0.0)
   - Toast-Swift (3.0.1)
 
@@ -17,6 +20,8 @@ DEPENDENCIES:
   - AlamofireImage (~> 3.3)
   - AlamofireObjectMapper (~> 5.0.0)
   - NVActivityIndicatorView (~> 4.1.1)
+  - RxCocoa (~> 4.0)
+  - RxSwift (~> 4.0)
   - SnapKit (~> 4.0.0)
   - Toast-Swift (~> 3.0.1)
 
@@ -27,6 +32,8 @@ SPEC REPOS:
     - AlamofireObjectMapper
     - NVActivityIndicatorView
     - ObjectMapper
+    - RxCocoa
+    - RxSwift
     - SnapKit
     - Toast-Swift
 
@@ -36,9 +43,11 @@ SPEC CHECKSUMS:
   AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
+  RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
+  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
 
-PODFILE CHECKSUM: 7d25ba20027b3caa3e9c7b13e00bd1738071f1bd
+PODFILE CHECKSUM: ae1572ae6c2865ff1d36a65f04c1226e3d8b9242
 
 COCOAPODS: 1.5.3

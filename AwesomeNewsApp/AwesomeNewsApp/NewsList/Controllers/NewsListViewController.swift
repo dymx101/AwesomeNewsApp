@@ -9,10 +9,20 @@
 import UIKit
 
 class NewsListViewController: UIViewController {
+    
+    var viewModel = NewsListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
+        
+        _ = viewModel.newsItemViewModelsObservable.subscribe(onNext: { (newsItemViewModels) in
+            print(newsItemViewModels)
+        })
+            
+        viewModel.reloadNews { (newsList) in
+            
+        }
     }
 }
 

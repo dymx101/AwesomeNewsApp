@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import RxSwift
 @testable import AwesomeNewsApp
 
 class NewsListViewModelTests: XCTestCase {
@@ -22,42 +23,37 @@ class NewsListViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func testLoadNewsListData() {
+    func testReloadNewsAndCanGetNewsItemViewModels() {
         let expectation = self.expectation(description: "Expect load news list data")
+        let expectationNewsItemViewModel = self.expectation(description: "news item view models should be generated")
         
-        viewModel.loadNewsListData { [weak self] (newsList) in
+        _ = viewModel.newsItemViewModelsObservable.filter({ (newsItemViewModels) -> Bool in
+            return newsItemViewModels.count > 0
+        }).subscribe(onNext: { (newsItemViewModels) in
+            expectationNewsItemViewModel.fulfill()
+            XCTAssertTrue(true)
+        })
+        
+        viewModel.reloadNews { [weak self] (newsList) in
             expectation.fulfill()
             XCTAssertNotNil(self?.viewModel.newsList)
         }
         
-        wait(for: [expectation], timeout: 20)
+        wait(for: [expectation, expectationNewsItemViewModel], timeout: 20)
     }
     
     func testLoadMoreNews() {
         let expectation = self.expectation(description: "Expect load more news list data")
         
-        viewModel.loadNewsListData { [weak self] (newsList) in
-            XCTAssertEqual(self?.viewModel.paramters.page, 0)
+        viewModel.reloadNews { [weak self] (newsList) in
             
             self?.viewModel.loadMoreNews { [weak self] (newsList2) in
                 expectation.fulfill()
                 
-                XCTAssertEqual(self?.viewModel.paramters.page, 1)
                 XCTAssertNotNil(self?.viewModel.newsList?.articles)
                 XCTAssertNotNil(newsList2?.articles)
                 XCTAssertGreaterThan((self?.viewModel.newsList?.articles?.count)!, (newsList2?.articles?.count)!)
             }
-        }
-        
-        wait(for: [expectation], timeout: 20)
-    }
-    
-    func testReloadNews() {
-        let expectation = self.expectation(description: "Expect reload news list data")
-        
-        viewModel.reloadNews { [weak self] (newsList) in
-            expectation.fulfill()
-            XCTAssertNotNil(self?.viewModel.newsList)
         }
         
         wait(for: [expectation], timeout: 20)

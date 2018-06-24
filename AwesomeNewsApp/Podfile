@@ -3,7 +3,6 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'AwesomeNewsApp' do
-    
     # Networking
     pod 'Alamofire', '~> 4.6.0'
     pod 'AlamofireImage', '~> 3.3'
@@ -13,9 +12,17 @@ target 'AwesomeNewsApp' do
     pod 'SnapKit', '~> 4.0.0'
     pod 'NVActivityIndicatorView', '~> 4.1.1'
     pod 'Toast-Swift', '~> 3.0.1'
+    
+    # Reactive
+    pod 'RxSwift',    '~> 4.0'
+    pod 'RxCocoa',    '~> 4.0'
 end
 
 target 'AwesomeNewsAppTests' do
+    # Networking
     pod 'Alamofire', '~> 4.6.0'
     pod 'AlamofireObjectMapper', '~> 5.0.0'
+    
+    # Reactive
+    pod 'RxSwift',    '~> 4.0'
 end
