@@ -14,11 +14,11 @@ class NewsListViewModel {
     
     private var newsClient: NewsClient!
     private var paramters: HeadlinesRequestParameters!
+    private let newsItemViewModelsVar = Variable([NewsItemViewModel]())
     
     /// The news list data loaded from remote api
     var newsList: NewsList?
     
-    private let newsItemViewModelsVar = Variable([NewsItemViewModel]())
     /// The observable for news item view models
     var newsItemViewModelsObservable:Observable<[NewsItemViewModel]> {
         return newsItemViewModelsVar.asObservable()
