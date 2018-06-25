@@ -32,7 +32,7 @@ class NewsListViewModel {
     
     init() {
         newsClient = NewsClient()
-        paramters = HeadlinesRequestParameters(country: HeadlinesRequestParameters.Countries.us.rawValue, apiKey: NewsClient.apiKey)
+        paramters = HeadlinesRequestParameters(country: HeadlinesRequestParameters.Countries.cn.rawValue, apiKey: NewsClient.apiKey)
     }
     
     

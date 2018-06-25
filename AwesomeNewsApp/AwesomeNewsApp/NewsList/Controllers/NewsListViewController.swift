@@ -28,11 +28,24 @@ class NewsListViewController: UIViewController {
         title = "Headlines"
         
         refresher.addTarget(self, action: #selector(NewsListViewController.reloadNews), for: .valueChanged)
+        tableView.addSubview(refresher)
         
         tableView.delegate = self
-        tableView.addSubview(refresher)
         tableView.rowHeight = 150
         tableView.register(UINib(nibName: NewsListItemCell.theID, bundle: nil), forCellReuseIdentifier: NewsListItemCell.theID)
+        
+        _ = tableView.rx.itemSelected.subscribe(onNext:{ [weak self] indexPath in
+            guard let articles = self?.viewModel.newsList?.articles, indexPath.row < articles.count else {
+                return
+            }
+            
+            self?.tableView.deselectRow(at: indexPath, animated: true)
+            
+            let viewModel = NewsDetailViewModel()
+            viewModel.url = articles[indexPath.row].url
+            self?.performSegue(withIdentifier: "showDetail", sender: viewModel)
+            
+        }).disposed(by: disposeBag)
     
         bindViewModel(viewModel: viewModel)
         
@@ -57,6 +70,13 @@ class NewsListViewController: UIViewController {
             [weak self] _ in self?.refresher.endRefreshing()
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let viewModel = sender as? NewsDetailViewModel
+        let destinationController = segue.destination as? NewsDetailViewController
+        
+        destinationController?.viewModel = viewModel
+    }
 }
 
 extension NewsListViewController: UITableViewDelegate {
@@ -66,14 +86,5 @@ extension NewsListViewController: UITableViewDelegate {
             self.loadMoreNews()
         }
     }
-    
-//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if indexPath.row == self.viewModel.newsCount() - 1 {
-//            self.loadMoreNews()
-//        }
-//    }
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//
-//    }
 }
 
