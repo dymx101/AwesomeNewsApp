@@ -14,10 +14,17 @@ class NewsListItemCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     
+    private var viewModel: NewsItemViewModel?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+    }
+    
+    func config(withViewModel viewModel:NewsItemViewModel) {
+        self.viewModel = viewModel
+        
+        _ = viewModel.titleObservable.bind(to: titleLabel.rx.text)
+        _ = viewModel.descObservable.bind(to: descLabel.rx.text)
     }
     
     static var theID: String {

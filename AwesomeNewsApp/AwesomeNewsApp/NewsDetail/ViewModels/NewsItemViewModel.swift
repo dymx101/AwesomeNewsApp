@@ -7,18 +7,35 @@
 //
 
 import Foundation
+import RxSwift
 
 class NewsItemViewModel {
-    var title: String?
-    var desc: String?
-    var url: String?
-    var urlToImage: String?
+    private var title = Variable(String(""))
+    private var desc = Variable(String(""))
+    private var url = Variable(String(""))
+    private var urlToImage = Variable(String(""))
+    
+    var titleObservable:Observable<String> {
+        return title.asObservable()
+    }
+    
+    var descObservable:Observable<String> {
+        return desc.asObservable()
+    }
+    
+    var urlObservable:Observable<String> {
+        return url.asObservable()
+    }
+    
+    var urlToImageObservable:Observable<String> {
+        return urlToImage.asObservable()
+    }
     
     convenience init(newsItem: NewsItem) {
         self.init()
-        self.title = newsItem.title
-        self.desc = newsItem.desc
-        self.url = newsItem.url
-        self.urlToImage = newsItem.urlToImage
+        self.title.value = newsItem.title ?? ""
+        self.desc.value = newsItem.desc ?? ""
+        self.url.value = newsItem.url ?? ""
+        self.urlToImage.value = newsItem.urlToImage ?? ""
     }
 }

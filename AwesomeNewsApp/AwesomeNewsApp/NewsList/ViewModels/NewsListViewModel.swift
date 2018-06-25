@@ -15,6 +15,7 @@ class NewsListViewModel {
     private var newsClient: NewsClient!
     private var paramters: HeadlinesRequestParameters!
     private let newsItemViewModelsVar = Variable([NewsItemViewModel]())
+    private let isRequestingVar = Variable(false)
     
     /// The news list data loaded from remote api
     var newsList: NewsList?
@@ -24,6 +25,11 @@ class NewsListViewModel {
         return newsItemViewModelsVar.asObservable()
     }
     
+    /// The observable for requesting status
+    var isRequestingObservable: Observable<Bool> {
+        return isRequestingVar.asObservable()
+    }
+    
     init() {
         newsClient = NewsClient()
         paramters = HeadlinesRequestParameters(country: HeadlinesRequestParameters.Countries.us.rawValue, apiKey: NewsClient.apiKey)
@@ -31,6 +37,13 @@ class NewsListViewModel {
     
     
     private func loadNewsListData(completion:@escaping (NewsList?) -> Void) {
+        
+        guard !isRequestingVar.value
+            && paramters.isReady()
+            && (hasMoreNews() || paramters.page == HeadlinesRequestParameters.Constants.firstPageIndex) else {
+            return
+        }
+        
         newsClient.loadHeaderlines(params: paramters) { [weak self] (newsList) in
             
             if (self?.paramters.page == HeadlinesRequestParameters.Constants.firstPageIndex) {
@@ -46,11 +59,23 @@ class NewsListViewModel {
             }
             
             completion(newsList)
+            
+            self?.isRequestingVar.value = false
         }
+        
+        isRequestingVar.value = true
     }
     
     func newsCount() -> Int {
         return newsList?.articles?.count ?? 0
+    }
+    
+    func hasMoreNews() -> Bool {
+        guard let current = newsList?.articles?.count, let total = newsList?.totalResults else {
+            return true
+        }
+        
+        return current < total
     }
     
     /// Load more news data from api

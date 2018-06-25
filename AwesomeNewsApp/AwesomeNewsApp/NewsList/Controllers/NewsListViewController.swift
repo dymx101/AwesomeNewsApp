@@ -35,17 +35,11 @@ class NewsListViewController: UIViewController {
         
         reloadNews()
         refresher.beginRefreshing()
-        
-//        _ = tableView.rx.willDisplayCell.subscribe(onNext: { (cell, indexpath) in
-//            if indexpath.row == self.viewModel.newsCount() - 1 {
-//                self.loadMoreNews()
-//            }
-//        })
     }
     
     func bindViewModel(viewModel: NewsListViewModel) {
         viewModel.newsItemViewModelsObservable.bind(to: tableView.rx.items(cellIdentifier: NewsListItemCell.theID, cellType: NewsListItemCell.self)) { (_, model: NewsItemViewModel, cell: NewsListItemCell) in
-                                                        cell.titleLabel?.text = model.title
+                                                        cell.config(withViewModel: model)
             }.disposed(by: disposeBag)
     }
     
@@ -63,10 +57,20 @@ class NewsListViewController: UIViewController {
 }
 
 extension NewsListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == self.viewModel.newsCount() - 1 {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
             self.loadMoreNews()
         }
     }
+    
+//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if indexPath.row == self.viewModel.newsCount() - 1 {
+//            self.loadMoreNews()
+//        }
+//    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//
+//    }
 }
 
