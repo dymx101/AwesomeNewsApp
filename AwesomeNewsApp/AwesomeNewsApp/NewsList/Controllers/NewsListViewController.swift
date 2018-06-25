@@ -17,6 +17,8 @@ class NewsListViewController: UIViewController {
     
     var viewModel = NewsListViewModel()
     
+    private var loadingMoreNewsIndicator = UIActivityIndicatorView()
+    
     /// A dispose bag to be sure that all element added to the bag is deallocated properly.
     let disposeBag = DisposeBag()
 
@@ -25,11 +27,22 @@ class NewsListViewController: UIViewController {
         view.backgroundColor = .gray
         tableView.backgroundColor = .clear
         
+        loadingMoreNewsIndicator.hidesWhenStopped = true
+        
         title = "Headlines"
         
         refresher.addTarget(self, action: #selector(NewsListViewController.reloadNews), for: .valueChanged)
         tableView.addSubview(refresher)
         
+        setupTableView()
+    
+        bindViewModel(viewModel: viewModel)
+        
+        reloadNews()
+        refresher.beginRefreshing()
+    }
+    
+    func setupTableView() {
         tableView.delegate = self
         tableView.rowHeight = 150
         tableView.register(UINib(nibName: NewsListItemCell.theID, bundle: nil), forCellReuseIdentifier: NewsListItemCell.theID)
@@ -46,11 +59,15 @@ class NewsListViewController: UIViewController {
             self?.performSegue(withIdentifier: "showDetail", sender: viewModel)
             
         }).disposed(by: disposeBag)
-    
-        bindViewModel(viewModel: viewModel)
         
-        reloadNews()
-        refresher.beginRefreshing()
+        let footerView = UIView()
+        footerView.addSubview(loadingMoreNewsIndicator)
+        loadingMoreNewsIndicator.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.bottom.equalToSuperview().offset(30)
+        }
+        tableView.tableFooterView = footerView
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 35, 0)
     }
     
     func bindViewModel(viewModel: NewsListViewModel) {
@@ -60,14 +77,14 @@ class NewsListViewController: UIViewController {
     }
     
     @objc fileprivate func reloadNews() {
-        viewModel.reloadNews {
-            [weak self] _ in self?.refresher.endRefreshing()
+        viewModel.reloadNews { [weak self] _ in
+            self?.refresher.endRefreshing()
         }
     }
     
     @objc fileprivate func loadMoreNews() {
-        viewModel.loadMoreNews {
-            [weak self] _ in self?.refresher.endRefreshing()
+        viewModel.loadMoreNews { [weak self] _ in
+            self?.loadingMoreNewsIndicator.stopAnimating()
         }
     }
     
@@ -83,6 +100,7 @@ extension NewsListViewController: UITableViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
+            loadingMoreNewsIndicator.startAnimating()
             self.loadMoreNews()
         }
     }
