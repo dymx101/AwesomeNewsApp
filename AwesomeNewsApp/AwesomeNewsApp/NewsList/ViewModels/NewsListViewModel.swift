@@ -13,7 +13,7 @@ import RxSwift
 class NewsListViewModel {
     
     private var newsClient: NewsClient!
-    private var paramters: HeadlinesRequestParameters!
+    private var paramters: EverythingRequestParameters!
     private let newsItemViewModelsVar = Variable([NewsItemViewModel]())
     private let isRequestingVar = Variable(false)
     
@@ -32,7 +32,8 @@ class NewsListViewModel {
     
     init() {
         newsClient = NewsClient()
-        paramters = HeadlinesRequestParameters(country: HeadlinesRequestParameters.Countries.us.rawValue, apiKey: NewsClient.apiKey)
+        
+        paramters = EverythingRequestParameters(language: EverythingRequestParameters.Languages.en.rawValue, sources: EverythingRequestParameters.Sources.cnn.rawValue, apiKey: NewsClient.apiKey)
     }
     
     
@@ -40,13 +41,13 @@ class NewsListViewModel {
         
         guard !isRequestingVar.value
             && paramters.isReady()
-            && (hasMoreNews() || paramters.page == HeadlinesRequestParameters.Constants.firstPageIndex) else {
+            && (hasMoreNews() || paramters.page == EverythingRequestParameters.Constants.firstPageIndex) else {
             return
         }
         
-        newsClient.loadHeaderlines(params: paramters) { [weak self] (newsList) in
+        newsClient.loadEverything(params: paramters) { [weak self] (newsList) in
             
-            if (self?.paramters.page == HeadlinesRequestParameters.Constants.firstPageIndex
+            if (self?.paramters.page == EverythingRequestParameters.Constants.firstPageIndex
                 || self?.newsList  == nil) {
                 self?.newsList = newsList
             } else {

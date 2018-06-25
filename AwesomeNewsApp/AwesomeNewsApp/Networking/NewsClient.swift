@@ -32,8 +32,8 @@ class NewsClient {
         return url
     }
     
-    func getHeadlinesURL(parameters: HeadlinesRequestParameters) -> URL? {
-        guard var urlString = getURL(endpoint: .headlines)?.absoluteString else {
+    func getEverythingURL(parameters: EverythingRequestParameters) -> URL? {
+        guard var urlString = getURL(endpoint: .everything)?.absoluteString else {
             return nil
         }
 
@@ -42,9 +42,9 @@ class NewsClient {
         return URL(string: urlString)
     }
     
-    func loadHeaderlines(params: HeadlinesRequestParameters, completion:@escaping (NewsList?)->Void) {
+    func loadEverything(params: EverythingRequestParameters, completion:@escaping (NewsList?)->Void) {
         
-        guard let url = getHeadlinesURL(parameters: params) else {return}
+        guard let url = getEverythingURL(parameters: params) else {return}
         
         Alamofire.request(url).responseObject { (respObject: DataResponse<NewsList>) in
             completion(respObject.result.value)

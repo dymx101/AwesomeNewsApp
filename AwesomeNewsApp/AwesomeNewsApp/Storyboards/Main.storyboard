@@ -32,7 +32,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="lpM-mZ-E6S"/>
+                    <navigationItem key="navigationItem" id="lpM-mZ-E6S">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="eYe-Dy-8Hb"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="XnL-as-wJD" id="imO-uR-Oxw"/>
                         <segue destination="Sbz-2B-Tvq" kind="show" identifier="showDetail" id="rfh-yQ-ZIK"/>

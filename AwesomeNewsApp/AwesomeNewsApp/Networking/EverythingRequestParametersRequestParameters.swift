@@ -1,5 +1,5 @@
 //
-//  HeadlinesRequestParameters.swift
+//  EverythingRequestParameters.swift
 //  AwesomeNewsApp
 //
 //  Created by Yiming Dong on 2018/6/23.
@@ -8,27 +8,21 @@
 
 import Foundation
 
-class HeadlinesRequestParameters {
+class EverythingRequestParameters {
     
-    enum Countries: String {
-        case us = "us"
-        case cn = "cn"
-        case sg = "sg"
+    enum Languages: String {
+        case en = "en"
+        case zh = "zh"
     }
     
-    enum Categories: String {
-        case business = "business"
-        case entertainment = "entertainment"
-        case general = "general"
-        case health = "health"
-        case science = "science"
-        case sports = "sports"
-        case technology = "technology"
+    enum Sources: String {
+        case cnn = "cnn"
+        case abcNews = "abc-news"
+        case bbcNews = "bbc-news"
     }
     
     enum Keys: String {
-        case country = "country"
-        case category = "category"
+        case language = "language"
         case sources = "sources"
         case keywords = "q"
         case pageSize = "pageSize"
@@ -41,8 +35,7 @@ class HeadlinesRequestParameters {
         static let defaultPageSize = 10
     }
     
-    var country: String = ""
-    var category: String = ""
+    var language: String = ""
     var sources: String = ""
     var keywords: String = ""
     var apiKey: String = ""
@@ -54,11 +47,10 @@ class HeadlinesRequestParameters {
         return _page
     }
     
-    convenience init(country: String? = nil, category: String? = nil, sources: String? = nil, keywords: String? = nil, apiKey: String? = nil, pageSize: Int = Constants.defaultPageSize) {
+    convenience init(language: String? = nil, sources: String? = nil, keywords: String? = nil, apiKey: String? = nil, pageSize: Int = Constants.defaultPageSize) {
         self.init()
         
-        self.country = country ?? ""
-        self.category = category ?? ""
+        self.language = language ?? ""
         self.sources = sources ?? ""
         self.keywords = keywords ?? ""
         self.apiKey = apiKey ?? ""
@@ -66,15 +58,7 @@ class HeadlinesRequestParameters {
     }
     
     func isReady() -> Bool {
-        if country.isEmpty && category.isEmpty && sources.isEmpty && keywords.isEmpty {
-            return false
-        }
-        
-        if !sources.isEmpty && (!country.isEmpty || !category.isEmpty) {
-            return false
-        }
-        
-        return true
+        return !(language.isEmpty && sources.isEmpty && keywords.isEmpty)
     }
     
     func gotoPage(_ page: Int) {
@@ -98,12 +82,8 @@ class HeadlinesRequestParameters {
     func paramString() -> String {
         var paramStrings = [String]()
         
-        if !country.isEmpty {
-            paramStrings.append(Keys.country.rawValue + "=" + country)
-        }
-        
-        if !category.isEmpty {
-            paramStrings.append(Keys.category.rawValue + "=" + category)
+        if !language.isEmpty {
+            paramStrings.append(Keys.language.rawValue + "=" + language)
         }
         
         if !sources.isEmpty {
