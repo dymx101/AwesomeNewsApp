@@ -21,34 +21,45 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AtI-7b-mSO">
                         <rect key="frame" x="0.0" y="0.5" width="320" height="96.5"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
+                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gml-QW-bZ3" userLabel="bgCoverView">
+                        <rect key="frame" x="0.0" y="0.5" width="320" height="96.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="News Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsx-Fh-WYi">
                         <rect key="frame" x="10" y="8" width="300" height="20.5"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GuF-8M-edC">
                         <rect key="frame" x="10" y="33" width="300" height="14.5"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
-                        <color key="textColor" red="0.47478141191709844" green="0.47478141191709844" blue="0.47478141191709844" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="nsx-Fh-WYi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="3Yr-fQ-Iel"/>
+                    <constraint firstItem="gml-QW-bZ3" firstAttribute="trailing" secondItem="AtI-7b-mSO" secondAttribute="trailing" id="7yM-i7-Kd8"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GuF-8M-edC" secondAttribute="bottom" constant="4" id="APQ-18-4nE"/>
+                    <constraint firstItem="gml-QW-bZ3" firstAttribute="top" secondItem="AtI-7b-mSO" secondAttribute="top" id="DiV-qu-OwG"/>
+                    <constraint firstItem="gml-QW-bZ3" firstAttribute="bottom" secondItem="AtI-7b-mSO" secondAttribute="bottom" id="Edx-XV-S4o"/>
                     <constraint firstAttribute="trailing" secondItem="GuF-8M-edC" secondAttribute="trailing" constant="10" id="Hlk-8e-YMq"/>
                     <constraint firstItem="nsx-Fh-WYi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="K6s-hb-e7r"/>
                     <constraint firstItem="AtI-7b-mSO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="OsM-Jv-gzm"/>
                     <constraint firstAttribute="trailing" secondItem="AtI-7b-mSO" secondAttribute="trailing" id="VMm-Mf-RvF"/>
                     <constraint firstAttribute="trailing" secondItem="nsx-Fh-WYi" secondAttribute="trailing" constant="10" id="bhc-zl-gCi"/>
                     <constraint firstItem="GuF-8M-edC" firstAttribute="top" secondItem="nsx-Fh-WYi" secondAttribute="bottom" constant="4" id="giI-au-b14"/>
-                    <constraint firstItem="AtI-7b-mSO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="0.5" id="hIp-fA-Dt1"/>
+                    <constraint firstItem="AtI-7b-mSO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hIp-fA-Dt1"/>
+                    <constraint firstItem="gml-QW-bZ3" firstAttribute="leading" secondItem="AtI-7b-mSO" secondAttribute="leading" id="jvh-2B-j9a"/>
                     <constraint firstItem="GuF-8M-edC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="nlj-jP-g6M"/>
                     <constraint firstAttribute="bottom" secondItem="AtI-7b-mSO" secondAttribute="bottom" constant="0.5" id="wLe-b3-2Z0"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="coverImageView" destination="AtI-7b-mSO" id="5G9-Lv-f8i"/>
