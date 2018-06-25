@@ -46,10 +46,11 @@ class NewsListViewModel {
         
         newsClient.loadHeaderlines(params: paramters) { [weak self] (newsList) in
             
-            if (self?.paramters.page == HeadlinesRequestParameters.Constants.firstPageIndex) {
+            if (self?.paramters.page == HeadlinesRequestParameters.Constants.firstPageIndex
+                || self?.newsList  == nil) {
                 self?.newsList = newsList
-            } else if let articles = newsList?.articles {
-                self?.newsList?.articles?.append(contentsOf: articles)
+            } else {
+                self?.newsList?.append(newsList: newsList)
             }
             
             if let newsItemViewModels = self?.newsList?.articles?.map({ (newsItem) -> NewsItemViewModel in
@@ -68,6 +69,10 @@ class NewsListViewModel {
     
     func newsCount() -> Int {
         return newsList?.articles?.count ?? 0
+    }
+    
+    func currentPage() -> Int {
+        return paramters.page
     }
     
     func hasMoreNews() -> Bool {

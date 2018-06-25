@@ -98,7 +98,7 @@ class NewsClientTests: XCTestCase {
             // Then
             XCTAssertNotNil(newsList, "load headlines api returns no data")
             XCTAssertEqual(newsList?.status, "ok")
-            XCTAssertEqual(newsList?.articles?.count, 20)
+            XCTAssertEqual(newsList?.articles?.count, HeadlinesRequestParameters.Constants.defaultPageSize)
         }
         
         wait(for: [expectation], timeout: 20)

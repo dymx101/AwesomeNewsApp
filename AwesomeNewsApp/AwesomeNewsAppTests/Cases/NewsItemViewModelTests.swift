@@ -24,15 +24,26 @@ class NewsItemViewModelTests: XCTestCase {
     
     func testConvinienceInitializer() {
         // Given
-        let newsItem = NewsItem(JSON: ["title" : "111", "desc" : "222", "url" : "333", "urlToImage" : "444"])
+        let newsItem = NewsItem(JSON: ["title" : "111", "description" : "222", "url" : "333", "urlToImage" : "444"])
         
         // When
         viewModel = NewsItemViewModel(newsItem: newsItem!)
         
         // Then
-        XCTAssertEqual(viewModel.title, newsItem?.title)
-        XCTAssertEqual(viewModel.desc, newsItem?.desc)
-        XCTAssertEqual(viewModel.url, newsItem?.url)
-        XCTAssertEqual(viewModel.urlToImage, newsItem?.urlToImage)
+        _ = viewModel.titleObservable.subscribe(onNext:{ title in
+            XCTAssertEqual(title, newsItem?.title)
+        })
+        
+        _ = viewModel.descObservable.subscribe(onNext:{ desc in
+            XCTAssertEqual(desc, newsItem?.desc)
+        })
+        
+        _ = viewModel.urlObservable.subscribe(onNext:{ url in
+            XCTAssertEqual(url, newsItem?.url)
+        })
+        
+        _ = viewModel.urlToImageObservable.subscribe(onNext:{ urlToImage in
+            XCTAssertEqual(urlToImage, newsItem?.urlToImage)
+        })
     }
 }

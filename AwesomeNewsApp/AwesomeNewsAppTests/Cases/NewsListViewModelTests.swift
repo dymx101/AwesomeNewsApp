@@ -45,15 +45,12 @@ class NewsListViewModelTests: XCTestCase {
     func testLoadMoreNews() {
         let expectation = self.expectation(description: "Expect load more news list data")
         
-        viewModel.reloadNews { [weak self] (newsList) in
+        viewModel.loadMoreNews { [weak self] (newsList2) in
+            expectation.fulfill()
             
-            self?.viewModel.loadMoreNews { [weak self] (newsList2) in
-                expectation.fulfill()
-                
-                XCTAssertNotNil(self?.viewModel.newsList?.articles)
-                XCTAssertNotNil(newsList2?.articles)
-                XCTAssertGreaterThan((self?.viewModel.newsList?.articles?.count)!, (newsList2?.articles?.count)!)
-            }
+            XCTAssertEqual((self?.viewModel.currentPage())!, HeadlinesRequestParameters.Constants.firstPageIndex + 1)
+            
+            XCTAssertNotNil(self?.viewModel.newsList?.articles)
         }
         
         wait(for: [expectation], timeout: 20)

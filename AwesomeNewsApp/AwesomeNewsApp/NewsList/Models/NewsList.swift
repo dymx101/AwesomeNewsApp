@@ -28,4 +28,14 @@ class NewsList: Mappable {
         message <- map["message"]
         totalResults <- map["totalResults"]
     }
+    
+    func append(newsList: NewsList?) {
+        guard let moreArticles = newsList?.articles else {return}
+        
+        if articles == nil {
+            articles = [NewsItem]()
+        }
+        
+        articles!.append(contentsOf: moreArticles)
+    }
 }

@@ -25,7 +25,7 @@ class NewsListViewController: UIViewController {
         view.backgroundColor = .gray
         tableView.backgroundColor = .clear
         
-        title = "Awesome News"
+        title = "Headlines"
         
         refresher.addTarget(self, action: #selector(NewsListViewController.reloadNews), for: .valueChanged)
         
