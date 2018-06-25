@@ -10,7 +10,6 @@ import UIKit
 import WebKit
 import RxSwift
 import SnapKit
-import NVActivityIndicatorView
 
 class NewsDetailViewController: UIViewController {
     
@@ -21,8 +20,9 @@ class NewsDetailViewController: UIViewController {
         static let progressToHideLoading = 0.89
     }
 
-    var webView: WKWebView!
-    var indicatorView: NVActivityIndicatorView!
+    private var webView: WKWebView!
+    private var progressView: UIView!
+    private var proressWidthConstraint: NSLayoutConstraint?
     
     var viewModel: NewsDetailViewModel?
     
@@ -32,7 +32,7 @@ class NewsDetailViewController: UIViewController {
         title = "News Detail"
         
         installWebView()
-        installIndicatorView()
+        installProgressView()
         
         loadNews()
     }
@@ -42,11 +42,14 @@ class NewsDetailViewController: UIViewController {
         
         let request = URLRequest(url: url)
         webView.load(request)
-        indicatorView.startAnimating()
     }
     
     func installWebView() {
-        webView = WKWebView(frame: view.bounds)
+        let config = WKWebViewConfiguration()
+        config.preferences = WKPreferences()
+        config.preferences.javaScriptEnabled = true
+        webView = WKWebView(frame: view.bounds, configuration: config)
+        webView.navigationDelegate = self
         view.addSubview(webView)
         webView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -56,28 +59,45 @@ class NewsDetailViewController: UIViewController {
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.loading), options: [.new, .old], context: nil)
     }
     
-    func installIndicatorView() {
-        indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: UIColor.black)
-        view.addSubview(indicatorView)
-        indicatorView.snp.makeConstraints { (maker) in
-            maker.center.equalToSuperview()
-            maker.width.equalTo(50)
-            maker.height.equalTo(50)
-        }
+    func installProgressView() {
+        progressView = UIView()
+        progressView.isHidden = true
+        progressView.backgroundColor = .orange
+        view.addSubview(progressView)
+        
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        progressView.topAnchor.constraint(equalTo: view.topAnchor, constant: 64).isActive = true
+        progressView.heightAnchor.constraint(equalToConstant: 3).isActive = true
+        proressWidthConstraint = progressView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0)
+        proressWidthConstraint?.isActive = true
     }
     
-    // MARK: KVO
+    func hideProgressView() {
+        proressWidthConstraint?.isActive = false
+        proressWidthConstraint = progressView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0)
+        proressWidthConstraint?.isActive = true
+        progressView.isHidden = true
+    }
+    
+    // MARK: KVO, make sure the indicatorView stop animating
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == Constants.kvoKeyEstimatedProgress {
-            if let value = change?[.newKey] as? Double, value > Constants.progressToHideLoading {
-                indicatorView.stopAnimating()
+            if let value = change?[.newKey] as? Double {
+                proressWidthConstraint?.isActive = false
+                proressWidthConstraint = progressView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: CGFloat(value))
+                proressWidthConstraint?.isActive = true
+                
+                if (value > Constants.progressToHideLoading) {
+                    hideProgressView()
+                }
             }
         } else if keyPath == Constants.kvoKeyLoading {
             guard let newValue = change?[.newKey] as? Int, let oldValue = change?[.oldKey] as? Int else {
                 return
             }
             if (newValue == 0 && oldValue == 1) {
-                indicatorView.stopAnimating()
+                hideProgressView()
             }
         }
     }
@@ -85,5 +105,15 @@ class NewsDetailViewController: UIViewController {
     deinit {
         webView.removeObserver(self, forKeyPath: Constants.kvoKeyEstimatedProgress)
         webView.removeObserver(self, forKeyPath: Constants.kvoKeyLoading)
+    }
+}
+
+extension NewsDetailViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        progressView.isHidden = false
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        hideProgressView()
     }
 }
