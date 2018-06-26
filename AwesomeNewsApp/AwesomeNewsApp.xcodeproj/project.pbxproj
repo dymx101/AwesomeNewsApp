@@ -25,6 +25,7 @@
 		8C6BC10920DFC67E0086DAE5 /* NewsListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6BC10720DFC67E0086DAE5 /* NewsListItemCell.swift */; };
 		8C6BC10A20DFC67E0086DAE5 /* NewsListItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6BC10820DFC67E0086DAE5 /* NewsListItemCell.xib */; };
 		8CA7B4A520E1E524000F42AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CA7B4A420E1E524000F42AF /* GoogleService-Info.plist */; };
+		8CA7B4A920E26986000F42AF /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7B4A820E26986000F42AF /* FirebaseManager.swift */; };
 		8CB4D40E20DE42AA0069AB9A /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4D40D20DE42AA0069AB9A /* NewsDetailViewController.swift */; };
 		8CB4D41120DF12950069AB9A /* NewsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4D41020DF12950069AB9A /* NewsListViewModel.swift */; };
 		8CB4D41320DF25900069AB9A /* NewsListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4D41220DF25900069AB9A /* NewsListViewModelTests.swift */; };
@@ -80,6 +81,7 @@
 		8C6BC10820DFC67E0086DAE5 /* NewsListItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsListItemCell.xib; sourceTree = "<group>"; };
 		8CA7B4A420E1E524000F42AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8CA7B4A620E21E95000F42AF /* AwesomeNewsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AwesomeNewsApp.entitlements; sourceTree = "<group>"; };
+		8CA7B4A820E26986000F42AF /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		8CB4D40D20DE42AA0069AB9A /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		8CB4D41020DF12950069AB9A /* NewsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewModel.swift; sourceTree = "<group>"; };
 		8CB4D41220DF25900069AB9A /* NewsListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewModelTests.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		8C55078C20DDC28700E8776C /* AwesomeNewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				8CA7B4A720E26964000F42AF /* Database */,
 				8CA7B4A620E21E95000F42AF /* AwesomeNewsApp.entitlements */,
 				8CF74C7A20DDE42C00B81F1F /* Networking */,
 				8C5507BC20DDC33400E8776C /* NewsDetail */,
@@ -343,6 +346,14 @@
 				8C5507EF20DDD1D300E8776C /* Info.plist */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		8CA7B4A720E26964000F42AF /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				8CA7B4A820E26986000F42AF /* FirebaseManager.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 		8CF74C7A20DDE42C00B81F1F /* Networking */ = {
@@ -634,6 +645,7 @@
 				8C6052E820E1BFF4006F838A /* NewsSearchViewModel.swift in Sources */,
 				8C53F4B920DF3E48002B6E91 /* NewsItemViewModel.swift in Sources */,
 				8CF74C8620DDF97E00B81F1F /* EverythingRequestParametersRequestParameters.swift in Sources */,
+				8CA7B4A920E26986000F42AF /* FirebaseManager.swift in Sources */,
 				8CF74C7C20DDE44600B81F1F /* NewsClient.swift in Sources */,
 				8C55079020DDC28700E8776C /* NewsListViewController.swift in Sources */,
 			);

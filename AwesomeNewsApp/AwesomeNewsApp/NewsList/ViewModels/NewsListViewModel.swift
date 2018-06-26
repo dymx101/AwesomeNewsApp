@@ -13,6 +13,7 @@ import RxSwift
 class NewsListViewModel {
     
     private var newsClient: NewsClient!
+    private var firebaseManager: FirebaseManager!
     private var paramters: EverythingRequestParameters!
     private let newsItemViewModelsVar = Variable([NewsItemViewModel]())
     private let isRequestingVar = Variable(false)
@@ -32,6 +33,7 @@ class NewsListViewModel {
     
     init() {
         newsClient = NewsClient()
+        firebaseManager = FirebaseManager()
         
         paramters = EverythingRequestParameters(language: EverythingRequestParameters.Languages.en.rawValue, sources: EverythingRequestParameters.Sources.cnn.rawValue, apiKey: NewsClient.apiKey)
     }
@@ -97,6 +99,13 @@ class NewsListViewModel {
     /// - Parameter completion: The completion block which returns a `NewsList` object.
     func reloadNews(completion:@escaping (NewsList?) -> Void) {
         paramters.gotoFirstPage()
-        loadNewsListData(completion: completion)
+        loadNewsListData { [weak self] (newslist) in
+            completion(newslist)
+            
+            // Save news list to Firebase
+            if let newslist = newslist {
+                self?.firebaseManager.saveNewsList(newslist: newslist)
+            }
+        }
     }
 }
