@@ -13,6 +13,8 @@ import RxCocoa
 class NewsSearchViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     let refresher: UIRefreshControl = UIRefreshControl()
     
     var viewModel = NewsSearchViewModel()
@@ -21,13 +23,18 @@ class NewsSearchViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
-    private let keywords = "bitcoin"
+    private var keywordsVar: Variable<String> = Variable("")
+    var keywordsObservable: Observable<String> {
+        return keywordsVar.asObservable()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .gray
+        view.backgroundColor = .darkGray
         tableView.backgroundColor = .clear
+        
+        title = "Search News"
         
         loadingMoreNewsIndicator.hidesWhenStopped = true
         
@@ -38,8 +45,17 @@ class NewsSearchViewController: UIViewController {
         
         bindViewModel(viewModel: viewModel)
         
-        searchNews(keywords: keywords)
-        refresher.beginRefreshing()
+        UISearchBar.appearance().tintColor = UIColor.red
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+        
+        _ = keywordsObservable
+            .throttle(1, scheduler: MainScheduler.instance)
+            .filter({ (keywords) -> Bool in
+                return !keywords.isEmpty
+            })
+            .subscribe(onNext: { [weak self] (keywords) in
+            self?.searchNews(keywords: keywords)
+        })
     }
     
     func setupTableView() {
@@ -100,7 +116,18 @@ extension NewsSearchViewController: UITableViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
             loadingMoreNewsIndicator.startAnimating()
-            self.searchMoreNews(keywords: keywords)
+            self.searchMoreNews(keywords: keywordsVar.value)
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchBar.resignFirstResponder()
+    }
+}
+
+extension NewsSearchViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        keywordsVar.value = searchBar.text ?? ""
+        searchBar.resignFirstResponder()
     }
 }

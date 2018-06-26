@@ -38,6 +38,9 @@ class NewsSearchViewModel {
     private func doSearch(keywords: String, completion:@escaping (NewsList?) -> Void) {
         
         paramters.keywords = keywords
+        if (paramters.page == EverythingRequestParameters.Constants.firstPageIndex) {
+            newsList = nil
+        }
         
         guard !isRequestingVar.value
             && paramters.isReady()

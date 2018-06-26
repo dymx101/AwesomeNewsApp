@@ -18,31 +18,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cyY-xG-j5b">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cyY-xG-j5b">
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="delegate" destination="KIs-mH-x4w" id="mFT-ms-DiJ"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for news" translatesAutoresizingMaskIntoConstraints="NO" id="4Qq-sF-anC">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="search" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                <connections>
+                                    <outlet property="delegate" destination="KIs-mH-x4w" id="w9l-zw-qpq"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="cyY-xG-j5b" firstAttribute="top" secondItem="4Qq-sF-anC" secondAttribute="bottom" id="4ss-eY-aYp"/>
                             <constraint firstItem="cyY-xG-j5b" firstAttribute="leading" secondItem="Xof-lh-eff" secondAttribute="leading" id="5B5-kx-Fjo"/>
-                            <constraint firstItem="cyY-xG-j5b" firstAttribute="top" secondItem="Xof-lh-eff" secondAttribute="top" id="XB4-X5-7T2"/>
+                            <constraint firstItem="4Qq-sF-anC" firstAttribute="trailing" secondItem="Xof-lh-eff" secondAttribute="trailing" id="VFe-1g-jRI"/>
+                            <constraint firstItem="4Qq-sF-anC" firstAttribute="top" secondItem="Xof-lh-eff" secondAttribute="top" id="YyT-bH-dq4"/>
                             <constraint firstItem="cyY-xG-j5b" firstAttribute="bottom" secondItem="Xof-lh-eff" secondAttribute="bottom" id="bsc-4Q-ONu"/>
+                            <constraint firstItem="4Qq-sF-anC" firstAttribute="leading" secondItem="Xof-lh-eff" secondAttribute="leading" id="pLZ-k3-598"/>
                             <constraint firstItem="cyY-xG-j5b" firstAttribute="trailing" secondItem="Xof-lh-eff" secondAttribute="trailing" id="rrI-Jg-RvK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Xof-lh-eff"/>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="4Qq-sF-anC" id="S65-0y-8sq"/>
                         <outlet property="tableView" destination="cyY-xG-j5b" id="y2K-1Z-bvS"/>
                         <segue destination="Sbz-2B-Tvq" kind="show" identifier="showDetail" id="X3G-8Q-t9t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fSc-Fj-e6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1663" y="-663"/>
+            <point key="canvasLocation" x="1661.5999999999999" y="-663.41829085457277"/>
         </scene>
         <!--Awesome News-->
         <scene sceneID="tne-QT-ifu">
@@ -120,6 +132,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="rfh-yQ-ZIK"/>
+        <segue reference="X3G-8Q-t9t"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,5 +1,5 @@
 //
-//  HeadlinesRequestParametersTest.swift
+//  EverythingRequestParametersTest.swift
 //  AwesomeNewsAppTests
 //
 //  Created by Yiming Dong on 2018/6/23.
@@ -82,13 +82,13 @@ class EverythingRequestParametersTest: XCTestCase {
         //Given
         parameters.language = "en"
         parameters.sources = "cnn"
-        parameters.keywords = "bitcoin"
+        parameters.keywords = "world cup"
         parameters.apiKey = NewsClient.apiKey
         
         // When
         let paramString = parameters.paramString()
         
         //Then
-        XCTAssertEqual(paramString, "language=en&sources=cnn&q=bitcoin&apiKey=\(NewsClient.apiKey)&pageSize=10&page=1")
+        XCTAssertEqual(paramString, "language=en&sources=cnn&q=world%20cup&apiKey=\(NewsClient.apiKey)&pageSize=10&page=1")
     }
 }

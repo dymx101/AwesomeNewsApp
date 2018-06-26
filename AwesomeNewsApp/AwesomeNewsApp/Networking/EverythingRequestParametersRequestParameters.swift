@@ -102,5 +102,6 @@ class EverythingRequestParameters {
         paramStrings.append(Keys.page.rawValue + "=" + String(page))
         
         return paramStrings.joined(separator: "&")
+            .addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
     }
 }
