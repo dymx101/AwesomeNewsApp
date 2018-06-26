@@ -9,14 +9,14 @@
 import XCTest
 @testable import AwesomeNewsApp
 
-class HeadlinesRequestParametersTest: XCTestCase {
+class EverythingRequestParametersTest: XCTestCase {
     
-    var parameters: HeadlinesRequestParameters!
+    var parameters: EverythingRequestParameters!
     
     override func setUp() {
         super.setUp()
         
-        parameters = HeadlinesRequestParameters()
+        parameters = EverythingRequestParameters()
     }
     
     override func tearDown() {
@@ -25,11 +25,10 @@ class HeadlinesRequestParametersTest: XCTestCase {
     
     func testConvenienceInitializer() {
         // Given
-        parameters = HeadlinesRequestParameters(country: "us", category: "business", sources: "cnn", keywords: "bitcoin", apiKey: "fakeKey", pageSize: 100)
+        parameters = EverythingRequestParameters(language: "en", sources: "cnn", keywords: "bitcoin", apiKey: "fakeKey", pageSize: 100)
         
         // Then
-        XCTAssertEqual(parameters.country, "us")
-        XCTAssertEqual(parameters.category, "business")
+        XCTAssertEqual(parameters.language, "en")
         XCTAssertEqual(parameters.sources, "cnn")
         XCTAssertEqual(parameters.keywords, "bitcoin")
         XCTAssertEqual(parameters.apiKey, "fakeKey")
@@ -60,18 +59,13 @@ class HeadlinesRequestParametersTest: XCTestCase {
         XCTAssertEqual(parameters.page, 9)
     }
     
-    func testIsReadyIfHasCategoryValue() {
-        parameters.category = HeadlinesRequestParameters.Categories.business.rawValue
-        XCTAssertTrue(parameters.isReady())
-    }
-    
     func testIsReadyIfHasSourceValue() {
         parameters.sources = "cnn"
         XCTAssertTrue(parameters.isReady())
     }
     
-    func testIsReadyIfHasCountryValue() {
-        parameters.country = "us"
+    func testIsReadyIfHasLanguageValue() {
+        parameters.language = "en"
         XCTAssertTrue(parameters.isReady())
     }
     
@@ -84,22 +78,10 @@ class HeadlinesRequestParametersTest: XCTestCase {
         XCTAssertFalse(parameters.isReady())
     }
     
-    func testIsNotReadyIfHasBothCountryAndSourcesValues() {
-        parameters.country = "us"
-        parameters.sources = "cnn"
-        XCTAssertFalse(parameters.isReady())
-    }
-    
-    func testIsNotReadyIfHasBothCategoryAndSourcesValues() {
-        parameters.category = HeadlinesRequestParameters.Categories.business.rawValue
-        parameters.sources = "cnn"
-        XCTAssertFalse(parameters.isReady())
-    }
-    
     func testGetParamStrings() {
         //Given
-        parameters.country = "us"
-        parameters.category = HeadlinesRequestParameters.Categories.business.rawValue
+        parameters.language = "en"
+        parameters.sources = "cnn"
         parameters.keywords = "bitcoin"
         parameters.apiKey = NewsClient.apiKey
         
@@ -107,6 +89,6 @@ class HeadlinesRequestParametersTest: XCTestCase {
         let paramString = parameters.paramString()
         
         //Then
-        XCTAssertEqual(paramString, "country=us&category=business&q=bitcoin&apiKey=\(NewsClient.apiKey)&pageSize=10&page=1")
+        XCTAssertEqual(paramString, "language=en&sources=cnn&q=bitcoin&apiKey=\(NewsClient.apiKey)&pageSize=10&page=1")
     }
 }

@@ -48,7 +48,7 @@ class NewsListViewModelTests: XCTestCase {
         viewModel.loadMoreNews { [weak self] (newsList2) in
             expectation.fulfill()
             
-            XCTAssertEqual((self?.viewModel.currentPage())!, HeadlinesRequestParameters.Constants.firstPageIndex + 1)
+            XCTAssertEqual((self?.viewModel.currentPage())!, EverythingRequestParameters.Constants.firstPageIndex + 1)
             
             XCTAssertNotNil(self?.viewModel.newsList?.articles)
         }

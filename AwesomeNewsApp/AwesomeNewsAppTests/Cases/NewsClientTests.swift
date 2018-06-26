@@ -43,10 +43,10 @@ class NewsClientTests: XCTestCase {
         let expectation = self.expectation(description: "Expect load header lines has data")
         
         // Given
-        let parameters = HeadlinesRequestParameters()
+        let parameters = EverythingRequestParameters()
         
         // When
-        newsClient.loadHeaderlines(params: parameters) { newsList in
+        newsClient.loadEverything(params: parameters) { newsList in
             expectation.fulfill()
             
             // Then
@@ -65,10 +65,10 @@ class NewsClientTests: XCTestCase {
         let expectation = self.expectation(description: "Expect load header lines has data")
         
         // Given
-        let parameters = HeadlinesRequestParameters(apiKey: NewsClient.apiKey)
+        let parameters = EverythingRequestParameters(apiKey: NewsClient.apiKey)
         
         // When
-        newsClient.loadHeaderlines(params: parameters) { newsList in
+        newsClient.loadEverything(params: parameters) { newsList in
             expectation.fulfill()
             
             // {"status":"error","code":"parametersMissing","message":"Required parameters are missing. Please set any of the following parameters and try again: sources, q, language, country, category."}
@@ -89,16 +89,16 @@ class NewsClientTests: XCTestCase {
         let expectation = self.expectation(description: "Expect load header lines has data")
         
         // Given
-        let parameters = HeadlinesRequestParameters(country:HeadlinesRequestParameters.Countries.us.rawValue, apiKey: NewsClient.apiKey)
+        let parameters = EverythingRequestParameters(language:"en", sources:"cnn", apiKey: NewsClient.apiKey)
         
         // When
-        newsClient.loadHeaderlines(params: parameters) { newsList in
+        newsClient.loadEverything(params: parameters) { newsList in
             expectation.fulfill()
             
             // Then
             XCTAssertNotNil(newsList, "load headlines api returns no data")
             XCTAssertEqual(newsList?.status, "ok")
-            XCTAssertEqual(newsList?.articles?.count, HeadlinesRequestParameters.Constants.defaultPageSize)
+            XCTAssertEqual(newsList?.articles?.count, EverythingRequestParameters.Constants.defaultPageSize)
         }
         
         wait(for: [expectation], timeout: 20)
