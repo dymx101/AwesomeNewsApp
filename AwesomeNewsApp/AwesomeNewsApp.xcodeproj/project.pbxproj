@@ -79,6 +79,7 @@
 		8C6BC10720DFC67E0086DAE5 /* NewsListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListItemCell.swift; sourceTree = "<group>"; };
 		8C6BC10820DFC67E0086DAE5 /* NewsListItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsListItemCell.xib; sourceTree = "<group>"; };
 		8CA7B4A420E1E524000F42AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8CA7B4A620E21E95000F42AF /* AwesomeNewsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AwesomeNewsApp.entitlements; sourceTree = "<group>"; };
 		8CB4D40D20DE42AA0069AB9A /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		8CB4D41020DF12950069AB9A /* NewsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewModel.swift; sourceTree = "<group>"; };
 		8CB4D41220DF25900069AB9A /* NewsListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewModelTests.swift; sourceTree = "<group>"; };
@@ -146,6 +147,7 @@
 		8C55078C20DDC28700E8776C /* AwesomeNewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				8CA7B4A620E21E95000F42AF /* AwesomeNewsApp.entitlements */,
 				8CF74C7A20DDE42C00B81F1F /* Networking */,
 				8C5507BC20DDC33400E8776C /* NewsDetail */,
 				8C5507BB20DDC30B00E8776C /* NewsList */,
@@ -444,6 +446,11 @@
 				TargetAttributes = {
 					8C55078920DDC28700E8776C = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					8C55079D20DDC28800E8776C = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -787,6 +794,7 @@
 			baseConfigurationReference = 299A554749B601E3149C29EE /* Pods-AwesomeNewsApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AwesomeNewsApp/AwesomeNewsApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K2QJU8A9HC;
 				INFOPLIST_FILE = AwesomeNewsApp/SupportingFiles/Info.plist;
@@ -807,6 +815,7 @@
 			baseConfigurationReference = 6534B4446C2E454F0D74DF56 /* Pods-AwesomeNewsApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AwesomeNewsApp/AwesomeNewsApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K2QJU8A9HC;
 				INFOPLIST_FILE = AwesomeNewsApp/SupportingFiles/Info.plist;
