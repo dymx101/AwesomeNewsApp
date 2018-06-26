@@ -16,6 +16,12 @@ target 'AwesomeNewsApp' do
     # Reactive
     pod 'RxSwift',    '~> 4.0'
     pod 'RxCocoa',    '~> 4.0'
+    
+    # Database
+    pod 'Firebase'
+    pod 'Firebase/Core'
+    pod 'Firebase/Database'
+    pod 'Firebase/Auth'
 end
 
 target 'AwesomeNewsAppTests' do
