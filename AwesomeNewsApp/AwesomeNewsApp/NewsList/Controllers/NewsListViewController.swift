@@ -29,8 +29,6 @@ class NewsListViewController: UIViewController {
         
         loadingMoreNewsIndicator.hidesWhenStopped = true
         
-        title = "Headlines"
-        
         refresher.addTarget(self, action: #selector(NewsListViewController.reloadNews), for: .valueChanged)
         tableView.addSubview(refresher)
         
