@@ -19,11 +19,11 @@ class NewsListViewController: UIViewController {
     
     private var loadingMoreNewsIndicator = UIActivityIndicatorView()
     
-    /// A dispose bag to be sure that all element added to the bag is deallocated properly.
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .gray
         tableView.backgroundColor = .clear
         
@@ -41,7 +41,6 @@ class NewsListViewController: UIViewController {
     }
     
     func setupTableView() {
-        tableView.delegate = self
         tableView.rowHeight = 150
         tableView.register(UINib(nibName: NewsListItemCell.theID, bundle: nil), forCellReuseIdentifier: NewsListItemCell.theID)
         
