@@ -26,14 +26,9 @@ class NewsDetailViewController: UIViewController {
     
     var viewModel: NewsDetailViewModel?
     
-    var firebaseManager: FirebaseManager!
-    var loadedFromCache: Bool = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "News Detail"
-        
-        firebaseManager = FirebaseManager()
         
         installWebView()
         installProgressView()
@@ -114,9 +109,7 @@ class NewsDetailViewController: UIViewController {
     func saveHtml() {
         webView.evaluateJavaScript("document.documentElement.outerHTML.toString()", completionHandler: {
             [weak self] (html: Any?, error: Error?) in
-            if let html = html as? String, let url = self?.viewModel?.url {
-                self?.firebaseManager.saveHtml(html, forUrl: url)
-            }
+            self?.viewModel?.saveHtml(html as? String)
         })
     }
 }
@@ -128,22 +121,14 @@ extension NewsDetailViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         
-        if let url = viewModel?.url {
-            firebaseManager.loadHtml(forUrl: url) { [weak self] (htmlString) in
-                webView.loadHTMLString(htmlString, baseURL: nil)
-                self?.loadedFromCache = true
-            }
+        viewModel?.loadCachedHtml { [weak self] htmlString in
+            webView.loadHTMLString(htmlString, baseURL: nil)
+            self?.viewModel?.loadedFromCache = true
         }
-    }
-    
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         hideProgressView()
-        if !loadedFromCache {
-            saveHtml()
-        }
+        saveHtml()
     }
 }
