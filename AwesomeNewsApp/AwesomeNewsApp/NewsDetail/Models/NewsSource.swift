@@ -11,6 +11,11 @@ import ObjectMapper
 
 class NewsSource: Mappable {
     
+    enum Keys: String {
+        case id = "id"
+        case name = "name"
+    }
+    
     var id: String?
     var name: String?
     

@@ -11,42 +11,86 @@ import Firebase
 
 class FirebaseManager {
     
+    
+    
     let newsListRef = Database.database().reference(withPath: "newslist")
     
     func saveNewsList(newslist: NewsList) {
-        newsListRef.child("status").setValue(newslist.status)
-        newsListRef.child("totalResults").setValue(newslist.totalResults)
+        newsListRef.removeValue()
+        newsListRef.child(NewsList.Keys.status.rawValue).setValue(newslist.status)
+        newsListRef.child(NewsList.Keys.totalResults.rawValue).setValue(newslist.totalResults)
         if let articles = newslist.articles {
-            let articlesRef = newsListRef.child("articles")
+            let articlesRef = newsListRef.child(NewsList.Keys.articles.rawValue)
             for article in articles {
                 let articleRef = articlesRef.childByAutoId()
                 
-                articleRef.child("author").setValue(article.author)
-                articleRef.child("title").setValue(article.title)
-                articleRef.child("desc").setValue(article.desc)
-                articleRef.child("url").setValue(article.url)
-                articleRef.child("urlToImage").setValue(article.urlToImage)
-                articleRef.child("publishedAt").setValue(article.publishedAt)
+                articleRef.child(NewsItem.Keys.author.rawValue).setValue(article.author)
+                articleRef.child(NewsItem.Keys.title.rawValue).setValue(article.title)
+                articleRef.child(NewsItem.Keys.desc.rawValue).setValue(article.desc)
+                articleRef.child(NewsItem.Keys.url.rawValue).setValue(article.url)
+                articleRef.child(NewsItem.Keys.urlToImage.rawValue).setValue(article.urlToImage)
+                articleRef.child(NewsItem.Keys.publishedAt.rawValue).setValue(article.publishedAt)
                 
                 if let source = article.source {
-                    articleRef.child("source").child("id").setValue(source.id)
-                    articleRef.child("source").child("name").setValue(source.name)
+                    articleRef.child(NewsItem.Keys.source.rawValue)
+                        .child(NewsSource.Keys.id.rawValue).setValue(source.id)
+                    articleRef.child(NewsItem.Keys.source.rawValue)
+                        .child(NewsSource.Keys.name.rawValue).setValue(source.name)
                 }
                 
             }
         }
     }
     
-    func readNewsList() -> NewsList? {
+    func loadNewsList(completion:@escaping (NewsList?)->Void) {
         
         newsListRef.observe(.value) { (snapshot) in
+            
             if snapshot.exists() {
                 
-            } else {
+                guard let newsList = NewsList(JSON: [:]) else {
+                    completion(nil)
+                    return
+                }
                 
+                newsList.status = snapshot.childSnapshot(forPath: NewsList.Keys.status.rawValue).value as? String
+                newsList.totalResults = snapshot.childSnapshot(forPath: NewsList.Keys.totalResults.rawValue).value as? Int
+                
+                let snapshotArticles = snapshot.childSnapshot(forPath: NewsList.Keys.articles.rawValue)
+                
+                guard snapshotArticles.exists() else {
+                    completion(newsList)
+                    return
+                }
+                
+                newsList.articles = [NewsItem]()
+                
+                for item in snapshotArticles.children {
+                    let snapshotItem = item as! DataSnapshot // item is a DataSpanshot for sure!
+                    if let article = NewsItem(JSON: [:]) {
+                        article.author = snapshotItem.childSnapshot(forPath: NewsItem.Keys.author.rawValue).value as? String
+                        article.title = snapshotItem.childSnapshot(forPath: NewsItem.Keys.title.rawValue).value as? String
+                        article.desc = snapshotItem.childSnapshot(forPath: NewsItem.Keys.desc.rawValue).value as? String
+                        article.url = snapshotItem.childSnapshot(forPath: NewsItem.Keys.url.rawValue).value as? String
+                        article.urlToImage = snapshotItem.childSnapshot(forPath: NewsItem.Keys.urlToImage.rawValue).value as? String
+                        article.publishedAt = snapshotItem.childSnapshot(forPath: NewsItem.Keys.publishedAt.rawValue).value as? String
+                        
+                        let snapshotSource = snapshotItem.childSnapshot(forPath: NewsItem.Keys.source.rawValue)
+                        if snapshotSource.exists() {
+                            if let newsSource = NewsSource(JSON: [:]) {
+                                newsSource.id = snapshotSource.childSnapshot(forPath: NewsSource.Keys.id.rawValue).value as? String
+                                newsSource.name = snapshotSource.childSnapshot(forPath: NewsSource.Keys.name.rawValue).value as? String
+                                
+                                article.source = newsSource
+                            }
+                        }
+                        
+                        newsList.articles?.append(article)
+                    }
+                }
+                
+                completion(newsList)
             }
         }
-        
-        return nil
     }
 }

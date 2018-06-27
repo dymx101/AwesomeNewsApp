@@ -11,6 +11,14 @@ import ObjectMapper
 
 class NewsList: Mappable {
     
+    enum Keys: String {
+        case status = "status"
+        case totalResults = "totalResults"
+        case code = "code"
+        case message = "message"
+        case articles = "articles"
+    }
+    
     var articles: [NewsItem]?
     var status: String?
     var code: String?
@@ -22,11 +30,11 @@ class NewsList: Mappable {
     }
     
     func mapping(map: Map) {
-        articles <- map["articles"]
-        status <- map["status"]
-        code <- map["code"]
-        message <- map["message"]
-        totalResults <- map["totalResults"]
+        articles <- map[Keys.articles.rawValue]
+        status <- map[Keys.status.rawValue]
+        code <- map[Keys.code.rawValue]
+        message <- map[Keys.message.rawValue]
+        totalResults <- map[Keys.totalResults.rawValue]
     }
     
     func append(newsList: NewsList?) {

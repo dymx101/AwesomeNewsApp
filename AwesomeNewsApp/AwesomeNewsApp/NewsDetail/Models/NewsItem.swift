@@ -11,6 +11,16 @@ import ObjectMapper
 
 class NewsItem: Mappable {
     
+    enum Keys: String {
+        case source = "source"
+        case author = "author"
+        case title = "title"
+        case desc = "description"
+        case url = "url"
+        case urlToImage = "urlToImage"
+        case publishedAt = "publishedAt"
+    }
+    
     var source: NewsSource?
     var author: String?
     var title: String?
