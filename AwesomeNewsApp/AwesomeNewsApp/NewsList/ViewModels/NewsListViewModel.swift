@@ -49,6 +49,20 @@ class NewsListViewModel {
         
         newsClient.loadEverything(params: paramters) { [weak self] (newsList) in
             
+            guard let _ = newsList else {
+                // No data from the server, might be some error, let's load from firebase
+                self?.firebaseManager.loadNewsList(completion: { (newsListCached) in
+                    // Delay 0.5 sec, to make the animation smoother
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
+                        self?.newsList = newsListCached
+                        self?.generateNewsItemViewModels()
+                        completion(newsListCached)
+                    })
+                })
+                self?.isRequestingVar.value = false
+                return
+            }
+            
             if (self?.paramters.page == EverythingRequestParameters.Constants.firstPageIndex
                 || self?.newsList  == nil) {
                 self?.newsList = newsList
@@ -56,18 +70,29 @@ class NewsListViewModel {
                 self?.newsList?.append(newsList: newsList)
             }
             
-            if let newsItemViewModels = self?.newsList?.articles?.map({ (newsItem) -> NewsItemViewModel in
-                return NewsItemViewModel(newsItem: newsItem)
-            }) {
-                self?.newsItemViewModelsVar.value = newsItemViewModels
-            }
+            self?.generateNewsItemViewModels()
             
             completion(newsList)
             
             self?.isRequestingVar.value = false
+            
+            // Save data to firebase if it's the first page
+            if self?.paramters.page == EverythingRequestParameters.Constants.firstPageIndex {
+                if let newsList = newsList {
+                    self?.firebaseManager.saveNewsList(newslist: newsList)
+                }
+            }
         }
         
         isRequestingVar.value = true
+    }
+    
+    private func generateNewsItemViewModels() {
+        if let newsItemViewModels = newsList?.articles?.map({ (newsItem) -> NewsItemViewModel in
+            return NewsItemViewModel(newsItem: newsItem)
+        }) {
+            newsItemViewModelsVar.value = newsItemViewModels
+        }
     }
     
     func newsCount() -> Int {
@@ -99,13 +124,8 @@ class NewsListViewModel {
     /// - Parameter completion: The completion block which returns a `NewsList` object.
     func reloadNews(completion:@escaping (NewsList?) -> Void) {
         paramters.gotoFirstPage()
-        loadNewsListData { [weak self] (newslist) in
+        loadNewsListData { (newslist) in
             completion(newslist)
-            
-            // Save news list to Firebase
-            if let newslist = newslist {
-                self?.firebaseManager.saveNewsList(newslist: newslist)
-            }
         }
     }
 }
