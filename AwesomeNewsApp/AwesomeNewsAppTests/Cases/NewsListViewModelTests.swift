@@ -17,6 +17,7 @@ class NewsListViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         viewModel = NewsListViewModel()
+        viewModel.dbManager = MockDatabaseManager()
     }
     
     override func tearDown() {

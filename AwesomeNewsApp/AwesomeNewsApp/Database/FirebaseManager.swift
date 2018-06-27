@@ -9,7 +9,14 @@
 import Foundation
 import Firebase
 
-class FirebaseManager {
+protocol DatabaseManager {
+    func saveHtml(_ html: String, forUrl url:String)
+    func loadHtml(forUrl url: String, completion: @escaping (String) -> Void)
+    func saveNewsList(newslist: NewsList)
+    func loadNewsList(completion:@escaping (NewsList?)->Void)
+}
+
+class FirebaseManager: DatabaseManager {
     
     enum Tables: String {
         case newsList = "newsList"

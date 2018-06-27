@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		181235E699C6D8BEBF619F8C /* Pods_AwesomeNewsAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE40681BEB870F4B055D714A /* Pods_AwesomeNewsAppTests.framework */; };
 		8290CCB7DE7201ED9BE5AC9E /* Pods_AwesomeNewsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CD6F2768F819D4BFC26D727 /* Pods_AwesomeNewsApp.framework */; };
+		8C21FE4520E44794006E61C4 /* MockDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C21FE4420E44794006E61C4 /* MockDatabaseManager.swift */; };
+		8C21FE4720E44913006E61C4 /* NewsDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C21FE4620E44913006E61C4 /* NewsDetailViewModelTests.swift */; };
 		8C53F4B920DF3E48002B6E91 /* NewsItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C53F4B820DF3E48002B6E91 /* NewsItemViewModel.swift */; };
 		8C53F4BB20DF4070002B6E91 /* NewsItemViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C53F4BA20DF4070002B6E91 /* NewsItemViewModelTests.swift */; };
 		8C55079020DDC28700E8776C /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C55078F20DDC28700E8776C /* NewsListViewController.swift */; };
@@ -61,6 +63,8 @@
 		0CD6F2768F819D4BFC26D727 /* Pods_AwesomeNewsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AwesomeNewsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		299A554749B601E3149C29EE /* Pods-AwesomeNewsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeNewsApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AwesomeNewsApp/Pods-AwesomeNewsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		6534B4446C2E454F0D74DF56 /* Pods-AwesomeNewsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeNewsApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-AwesomeNewsApp/Pods-AwesomeNewsApp.release.xcconfig"; sourceTree = "<group>"; };
+		8C21FE4420E44794006E61C4 /* MockDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDatabaseManager.swift; sourceTree = "<group>"; };
+		8C21FE4620E44913006E61C4 /* NewsDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewModelTests.swift; sourceTree = "<group>"; };
 		8C53F4B820DF3E48002B6E91 /* NewsItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemViewModel.swift; sourceTree = "<group>"; };
 		8C53F4BA20DF4070002B6E91 /* NewsItemViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemViewModelTests.swift; sourceTree = "<group>"; };
 		8C55078A20DDC28700E8776C /* AwesomeNewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwesomeNewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -321,6 +325,7 @@
 				8C6052E920E1C37E006F838A /* NewsSearchViewModelTests.swift */,
 				8CA7B4AA20E32B29000F42AF /* FirebaseManagerTests.swift */,
 				8CAF799820E3A7CD00F07EA2 /* NewsListTests.swift */,
+				8C21FE4620E44913006E61C4 /* NewsDetailViewModelTests.swift */,
 			);
 			path = Cases;
 			sourceTree = "<group>";
@@ -336,6 +341,7 @@
 		8C5507E720DDCEB700E8776C /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				8C21FE4420E44794006E61C4 /* MockDatabaseManager.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -684,10 +690,12 @@
 			files = (
 				8C6052EA20E1C37E006F838A /* NewsSearchViewModelTests.swift in Sources */,
 				8CAF799920E3A7CD00F07EA2 /* NewsListTests.swift in Sources */,
+				8C21FE4520E44794006E61C4 /* MockDatabaseManager.swift in Sources */,
 				8CB4D41320DF25900069AB9A /* NewsListViewModelTests.swift in Sources */,
 				8CF74C7920DDE27900B81F1F /* NewsClientTests.swift in Sources */,
 				8C53F4BB20DF4070002B6E91 /* NewsItemViewModelTests.swift in Sources */,
 				8CA7B4AB20E32B29000F42AF /* FirebaseManagerTests.swift in Sources */,
+				8C21FE4720E44913006E61C4 /* NewsDetailViewModelTests.swift in Sources */,
 				8CF74C8420DDF92400B81F1F /* EverythingRequestParametersTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

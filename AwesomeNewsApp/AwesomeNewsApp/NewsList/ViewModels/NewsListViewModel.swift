@@ -13,7 +13,7 @@ import RxSwift
 class NewsListViewModel {
     
     private var newsClient: NewsClient!
-    private var firebaseManager: FirebaseManager!
+    var dbManager: DatabaseManager!
     private var paramters: EverythingRequestParameters!
     private let newsItemViewModelsVar = Variable([NewsItemViewModel]())
     private let isRequestingVar = Variable(false)
@@ -33,7 +33,7 @@ class NewsListViewModel {
     
     init() {
         newsClient = NewsClient()
-        firebaseManager = FirebaseManager()
+        dbManager = FirebaseManager()
         
         paramters = EverythingRequestParameters(language: EverythingRequestParameters.Languages.en.rawValue, sources: EverythingRequestParameters.Sources.cnn.rawValue, apiKey: NewsClient.apiKey)
     }
@@ -51,7 +51,7 @@ class NewsListViewModel {
             
             guard let _ = newsList else {
                 // No data from the server, might be some error, let's load from firebase
-                self?.firebaseManager.loadNewsList(completion: { (newsListCached) in
+                self?.dbManager.loadNewsList(completion: { (newsListCached) in
                     // Delay 0.5 sec, to make the animation smoother
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
                         self?.newsList = newsListCached
@@ -79,7 +79,7 @@ class NewsListViewModel {
             // Save data to firebase if it's the first page
             if self?.paramters.page == EverythingRequestParameters.Constants.firstPageIndex {
                 if let newsList = newsList {
-                    self?.firebaseManager.saveNewsList(newslist: newsList)
+                    self?.dbManager.saveNewsList(newslist: newsList)
                 }
             }
         }

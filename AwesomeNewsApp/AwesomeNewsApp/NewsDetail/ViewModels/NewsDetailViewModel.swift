@@ -12,13 +12,13 @@ class NewsDetailViewModel {
     
     var url: String?
     
-    var firebaseManager: FirebaseManager!
+    var dbManager: DatabaseManager!
     
     /// If the data is loaded from cache
     var loadedFromCache: Bool = false
     
     init() {
-       firebaseManager = FirebaseManager()
+       dbManager = FirebaseManager()
     }
     
     func saveHtml(_ html: String?) {
@@ -27,12 +27,12 @@ class NewsDetailViewModel {
             return
         }
         
-        firebaseManager.saveHtml(html, forUrl: url)
+        dbManager.saveHtml(html, forUrl: url)
     }
     
     func loadCachedHtml(completion: @escaping (String) -> Void) {
         if let url = url {
-            firebaseManager.loadHtml(forUrl: url) { [weak self] (htmlString) in
+            dbManager.loadHtml(forUrl: url) { [weak self] (htmlString) in
                 completion(htmlString)
                 self?.loadedFromCache = true
             }
