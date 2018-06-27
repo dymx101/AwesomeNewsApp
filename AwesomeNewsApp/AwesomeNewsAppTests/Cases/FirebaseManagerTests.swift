@@ -22,6 +22,20 @@ class FirebaseManagerTests: XCTestCase {
         super.tearDown()
     }
     
+    func testSaveAndLoadNewsHtml() {
+        let expectation = self.expectation(description: "should be able to read news html from firebase")
+        let url = "https://www.google.com"
+        let htmlString = "<html><body>This is a test html file</body></html>"
+        
+        firebaseManager.saveHtml(htmlString, forUrl: url)
+        firebaseManager.loadHtml(forUrl:url) { (htmlStringLoaded) in
+            expectation.fulfill()
+            XCTAssertEqual(htmlStringLoaded, htmlString)
+        }
+        
+        wait(for: [expectation], timeout: 20)
+    }
+    
     func testSaveAndLoadNewsList() {
         let expectation = self.expectation(description: "should be able to read news list from firebase")
         

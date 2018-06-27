@@ -87,6 +87,10 @@ class NewsSearchViewModel {
         return current < total
     }
     
+    func isRequesting() -> Bool {
+        return isRequestingVar.value
+    }
+    
     func searchMoreNews(keywords: String, completion:@escaping (NewsList?) -> Void) {
         paramters.gotoNextPage()
         doSearch(keywords:keywords, completion: completion)

@@ -111,6 +111,10 @@ class NewsListViewModel {
         return current < total
     }
     
+    func isRequesting() -> Bool {
+        return isRequestingVar.value
+    }
+    
     /// Load more news data from api
     ///
     /// - Parameter completion: The completion block which returns a `NewsList` object.

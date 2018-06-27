@@ -96,7 +96,9 @@ class NewsListViewController: UIViewController {
 extension NewsListViewController: UITableViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
+        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height
+            && viewModel.hasMoreNews()
+            && !viewModel.isRequesting(){
             loadingMoreNewsIndicator.startAnimating()
             self.loadMoreNews()
         }

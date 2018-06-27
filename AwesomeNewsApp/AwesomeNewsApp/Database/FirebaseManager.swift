@@ -11,9 +11,25 @@ import Firebase
 
 class FirebaseManager {
     
+    enum Tables: String {
+        case newsList = "newsList"
+        case newsHtml = "newsHtml"
+    }
     
+    let newsListRef = Database.database().reference(withPath: Tables.newsList.rawValue)
+    let newsHtmlRef = Database.database().reference(withPath: Tables.newsHtml.rawValue)
     
-    let newsListRef = Database.database().reference(withPath: "newslist")
+    func saveHtml(_ html: String, forUrl url:String) {
+        newsListRef.child(url.toMD5()).removeValue()
+        newsHtmlRef.child(url.toMD5()).setValue(html)
+    }
+    
+    func loadHtml(forUrl url: String, completion: @escaping (String) -> Void) {
+        newsHtmlRef.child(url.toMD5()).observe(.value) { (snapshot) in
+            let htmlString = snapshot.value as? String
+            completion(htmlString ?? "")
+        }
+    }
     
     func saveNewsList(newslist: NewsList) {
         newsListRef.removeValue()

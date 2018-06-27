@@ -27,6 +27,7 @@
 		8CA7B4A520E1E524000F42AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CA7B4A420E1E524000F42AF /* GoogleService-Info.plist */; };
 		8CA7B4A920E26986000F42AF /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7B4A820E26986000F42AF /* FirebaseManager.swift */; };
 		8CA7B4AB20E32B29000F42AF /* FirebaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7B4AA20E32B29000F42AF /* FirebaseManagerTests.swift */; };
+		8CA7B4AE20E34FB4000F42AF /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7B4AD20E34FB4000F42AF /* String+MD5.swift */; };
 		8CB4D40E20DE42AA0069AB9A /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4D40D20DE42AA0069AB9A /* NewsDetailViewController.swift */; };
 		8CB4D41120DF12950069AB9A /* NewsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4D41020DF12950069AB9A /* NewsListViewModel.swift */; };
 		8CB4D41320DF25900069AB9A /* NewsListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4D41220DF25900069AB9A /* NewsListViewModelTests.swift */; };
@@ -84,6 +85,8 @@
 		8CA7B4A620E21E95000F42AF /* AwesomeNewsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AwesomeNewsApp.entitlements; sourceTree = "<group>"; };
 		8CA7B4A820E26986000F42AF /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		8CA7B4AA20E32B29000F42AF /* FirebaseManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManagerTests.swift; sourceTree = "<group>"; };
+		8CA7B4AD20E34FB4000F42AF /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
+		8CA7B4AF20E35082000F42AF /* AwesomeNewsApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AwesomeNewsApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		8CB4D40D20DE42AA0069AB9A /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		8CB4D41020DF12950069AB9A /* NewsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewModel.swift; sourceTree = "<group>"; };
 		8CB4D41220DF25900069AB9A /* NewsListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewModelTests.swift; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 		8C55078C20DDC28700E8776C /* AwesomeNewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				8CA7B4AC20E34F9F000F42AF /* Extensions */,
 				8CA7B4A720E26964000F42AF /* Database */,
 				8CA7B4A620E21E95000F42AF /* AwesomeNewsApp.entitlements */,
 				8CF74C7A20DDE42C00B81F1F /* Networking */,
@@ -344,6 +348,7 @@
 		8C5507EE20DDD19E00E8776C /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				8CA7B4AF20E35082000F42AF /* AwesomeNewsApp-Bridging-Header.h */,
 				8CA7B4A420E1E524000F42AF /* GoogleService-Info.plist */,
 				8C5507F020DDD1D300E8776C /* AppDelegate.swift */,
 				8C5507EF20DDD1D300E8776C /* Info.plist */,
@@ -357,6 +362,14 @@
 				8CA7B4A820E26986000F42AF /* FirebaseManager.swift */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		8CA7B4AC20E34F9F000F42AF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8CA7B4AD20E34FB4000F42AF /* String+MD5.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		8CF74C7A20DDE42C00B81F1F /* Networking */ = {
@@ -460,6 +473,7 @@
 				TargetAttributes = {
 					8C55078920DDC28700E8776C = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -647,6 +661,7 @@
 				8C6052E620E1BF29006F838A /* NewsSearchViewController.swift in Sources */,
 				8C6052E220E0CF08006F838A /* NewsDetailViewModel.swift in Sources */,
 				8CB4D40E20DE42AA0069AB9A /* NewsDetailViewController.swift in Sources */,
+				8CA7B4AE20E34FB4000F42AF /* String+MD5.swift in Sources */,
 				8CF74C8220DDEB8B00B81F1F /* NewsList.swift in Sources */,
 				8C6BC10920DFC67E0086DAE5 /* NewsListItemCell.swift in Sources */,
 				8CB4D41120DF12950069AB9A /* NewsListViewModel.swift in Sources */,
@@ -818,6 +833,7 @@
 			baseConfigurationReference = 299A554749B601E3149C29EE /* Pods-AwesomeNewsApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AwesomeNewsApp/AwesomeNewsApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K2QJU8A9HC;
@@ -829,6 +845,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dym.AwesomeNewsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AwesomeNewsApp/SupportingFiles/AwesomeNewsApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -839,6 +857,7 @@
 			baseConfigurationReference = 6534B4446C2E454F0D74DF56 /* Pods-AwesomeNewsApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AwesomeNewsApp/AwesomeNewsApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K2QJU8A9HC;
@@ -850,6 +869,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dym.AwesomeNewsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AwesomeNewsApp/SupportingFiles/AwesomeNewsApp-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

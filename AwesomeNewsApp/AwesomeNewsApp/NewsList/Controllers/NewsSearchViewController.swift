@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 import RxSwift
 import RxCocoa
 
@@ -15,11 +16,10 @@ class NewsSearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    let refresher: UIRefreshControl = UIRefreshControl()
-    
     var viewModel = NewsSearchViewModel()
     
     private var loadingMoreNewsIndicator = UIActivityIndicatorView()
+    private var indicatorView: NVActivityIndicatorView!
     
     private let disposeBag = DisposeBag()
     
@@ -38,15 +38,15 @@ class NewsSearchViewController: UIViewController {
         
         loadingMoreNewsIndicator.hidesWhenStopped = true
         
-        refresher.addTarget(self, action: #selector(NewsSearchViewController.searchNews(keywords:)), for: .valueChanged)
-        tableView.addSubview(refresher)
-        
         setupTableView()
         
-        bindViewModel(viewModel: viewModel)
+        installIndicatorView()
         
         UISearchBar.appearance().tintColor = UIColor.red
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+        
+        // Data binding
+        bindViewModel(viewModel: viewModel)
         
         _ = keywordsObservable
             .throttle(1, scheduler: MainScheduler.instance)
@@ -56,6 +56,16 @@ class NewsSearchViewController: UIViewController {
             .subscribe(onNext: { [weak self] (keywords) in
             self?.searchNews(keywords: keywords)
         })
+    }
+    
+    func installIndicatorView() {
+        indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: UIColor.black)
+        view.addSubview(indicatorView)
+        indicatorView.snp.makeConstraints { (maker) in
+            maker.center.equalToSuperview()
+            maker.width.equalTo(50)
+            maker.height.equalTo(50)
+        }
     }
     
     func setupTableView() {
@@ -92,12 +102,14 @@ class NewsSearchViewController: UIViewController {
     }
     
     @objc fileprivate func searchNews(keywords: String) {
+        indicatorView.startAnimating()
         viewModel.searchNews(keywords: keywords) { [weak self] _ in
-            self?.refresher.endRefreshing()
+            self?.indicatorView.stopAnimating()
         }
     }
     
     @objc fileprivate func searchMoreNews(keywords: String) {
+        loadingMoreNewsIndicator.startAnimating()
         viewModel.searchMoreNews(keywords: keywords) { [weak self] _ in
             self?.loadingMoreNewsIndicator.stopAnimating()
         }
@@ -114,8 +126,9 @@ class NewsSearchViewController: UIViewController {
 extension NewsSearchViewController: UITableViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
-            loadingMoreNewsIndicator.startAnimating()
+        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height
+            && viewModel.hasMoreNews()
+            && !viewModel.isRequesting() {
             self.searchMoreNews(keywords: keywordsVar.value)
         }
     }
@@ -127,7 +140,10 @@ extension NewsSearchViewController: UITableViewDelegate {
 
 extension NewsSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        keywordsVar.value = searchBar.text ?? ""
+        
         searchBar.resignFirstResponder()
+        tableView.setContentOffset(CGPoint.zero, animated: true)
+        
+        keywordsVar.value = searchBar.text ?? ""
     }
 }
