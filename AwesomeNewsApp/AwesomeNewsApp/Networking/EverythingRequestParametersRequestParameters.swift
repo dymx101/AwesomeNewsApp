@@ -61,6 +61,7 @@ class EverythingRequestParameters {
         return !(language.isEmpty && sources.isEmpty && keywords.isEmpty)
     }
     
+    // MARK: page control methods
     func gotoPage(_ page: Int) {
         _page = page
     }
@@ -79,6 +80,7 @@ class EverythingRequestParameters {
         _page += 1
     }
     
+    // MARK: url param string
     func paramString() -> String {
         var paramStrings = [String]()
         

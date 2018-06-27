@@ -34,12 +34,12 @@ class NewsItem: Mappable {
     }
     
     func mapping(map: Map) {
-        source <- map["source"]
-        author <- map["author"]
-        title <- map["title"]
-        desc <- map["description"]
-        url <- map["url"]
-        urlToImage <- map["urlToImage"]
-        publishedAt <- map["publishedAt"]
+        source <- map[Keys.source.rawValue]
+        author <- map[Keys.author.rawValue]
+        title <- map[Keys.title.rawValue]
+        desc <- map[Keys.desc.rawValue]
+        url <- map[Keys.url.rawValue]
+        urlToImage <- map[Keys.urlToImage.rawValue]
+        publishedAt <- map[Keys.publishedAt.rawValue]
     }
 }

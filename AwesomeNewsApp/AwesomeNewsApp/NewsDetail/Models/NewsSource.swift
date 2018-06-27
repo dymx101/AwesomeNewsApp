@@ -24,7 +24,7 @@ class NewsSource: Mappable {
     }
     
     func mapping(map: Map) {
-        id <- map["id"]
-        name <- map["name"]
+        id <- map[Keys.id.rawValue]
+        name <- map[Keys.name.rawValue]
     }
 }

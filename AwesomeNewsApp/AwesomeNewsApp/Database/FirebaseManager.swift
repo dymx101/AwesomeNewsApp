@@ -19,6 +19,7 @@ class FirebaseManager {
     let newsListRef = Database.database().reference(withPath: Tables.newsList.rawValue)
     let newsHtmlRef = Database.database().reference(withPath: Tables.newsHtml.rawValue)
     
+    // MARK: Save&Load html for news detail
     func saveHtml(_ html: String, forUrl url:String) {
         newsListRef.child(url.toMD5()).removeValue()
         newsHtmlRef.child(url.toMD5()).setValue(html)
@@ -31,10 +32,13 @@ class FirebaseManager {
         }
     }
     
+    // MARK: Save&Load news list
     func saveNewsList(newslist: NewsList) {
         newsListRef.removeValue()
+        
         newsListRef.child(NewsList.Keys.status.rawValue).setValue(newslist.status)
         newsListRef.child(NewsList.Keys.totalResults.rawValue).setValue(newslist.totalResults)
+        
         if let articles = newslist.articles {
             let articlesRef = newsListRef.child(NewsList.Keys.articles.rawValue)
             for article in articles {
