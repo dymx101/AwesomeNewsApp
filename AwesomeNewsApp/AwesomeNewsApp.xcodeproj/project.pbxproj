@@ -134,6 +134,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C21FE4820E44F5C006E61C4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8C6052E920E1C37E006F838A /* NewsSearchViewModelTests.swift */,
+				8CB4D41220DF25900069AB9A /* NewsListViewModelTests.swift */,
+				8C53F4BA20DF4070002B6E91 /* NewsItemViewModelTests.swift */,
+				8C21FE4620E44913006E61C4 /* NewsDetailViewModelTests.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8C21FE4920E44F6F006E61C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8CF74C8320DDF92400B81F1F /* EverythingRequestParametersTest.swift */,
+				8CAF799820E3A7CD00F07EA2 /* NewsListTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		8C55078120DDC28700E8776C = {
 			isa = PBXGroup;
 			children = (
@@ -318,14 +338,10 @@
 		8C5507E520DDCE9900E8776C /* Cases */ = {
 			isa = PBXGroup;
 			children = (
+				8C21FE4920E44F6F006E61C4 /* Models */,
+				8C21FE4820E44F5C006E61C4 /* ViewModels */,
 				8CF74C7820DDE27900B81F1F /* NewsClientTests.swift */,
-				8CF74C8320DDF92400B81F1F /* EverythingRequestParametersTest.swift */,
-				8CB4D41220DF25900069AB9A /* NewsListViewModelTests.swift */,
-				8C53F4BA20DF4070002B6E91 /* NewsItemViewModelTests.swift */,
-				8C6052E920E1C37E006F838A /* NewsSearchViewModelTests.swift */,
 				8CA7B4AA20E32B29000F42AF /* FirebaseManagerTests.swift */,
-				8CAF799820E3A7CD00F07EA2 /* NewsListTests.swift */,
-				8C21FE4620E44913006E61C4 /* NewsDetailViewModelTests.swift */,
 			);
 			path = Cases;
 			sourceTree = "<group>";
