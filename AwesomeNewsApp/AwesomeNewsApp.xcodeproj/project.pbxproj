@@ -16,7 +16,6 @@
 		8C5507AE20DDC28800E8776C /* AwesomeNewsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5507AD20DDC28800E8776C /* AwesomeNewsAppUITests.swift */; };
 		8C5507DE20DDCE3400E8776C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C5507DC20DDCE3400E8776C /* Main.storyboard */; };
 		8C5507DF20DDCE3400E8776C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C5507DD20DDCE3400E8776C /* LaunchScreen.storyboard */; };
-		8C5507F120DDD1D300E8776C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C5507EF20DDD1D300E8776C /* Info.plist */; };
 		8C5507F220DDD1D300E8776C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5507F020DDD1D300E8776C /* AppDelegate.swift */; };
 		8C6052E220E0CF08006F838A /* NewsDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6052E120E0CF08006F838A /* NewsDetailViewModel.swift */; };
 		8C6052E620E1BF29006F838A /* NewsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6052E520E1BF29006F838A /* NewsSearchViewController.swift */; };
@@ -521,7 +520,6 @@
 				8C5507DF20DDCE3400E8776C /* LaunchScreen.storyboard in Resources */,
 				8C55079520DDC28800E8776C /* Assets.xcassets in Resources */,
 				8C6BC10A20DFC67E0086DAE5 /* NewsListItemCell.xib in Resources */,
-				8C5507F120DDD1D300E8776C /* Info.plist in Resources */,
 				8C5507DE20DDCE3400E8776C /* Main.storyboard in Resources */,
 				8CA7B4A520E1E524000F42AF /* GoogleService-Info.plist in Resources */,
 			);

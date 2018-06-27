@@ -82,7 +82,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Awesome News" id="lpM-mZ-E6S">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="eYe-Dy-8Hb">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="search" id="eYe-Dy-8Hb">
                             <connections>
                                 <segue destination="KIs-mH-x4w" kind="show" identifier="goSearch" id="lWu-0p-Ual"/>
                             </connections>
