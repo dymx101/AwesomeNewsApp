@@ -38,52 +38,6 @@ class NewsClientTests: XCTestCase {
     }
     
     // FIXME: This test should be move to integration tests later
-    func testLoadHeaderlinesFailsIfAPIKeyIsMissing() {
-        
-        let expectation = self.expectation(description: "Expect load header lines has data")
-        
-        // Given
-        let parameters = EverythingRequestParameters()
-        
-        // When
-        newsClient.loadEverything(params: parameters) { newsList in
-            expectation.fulfill()
-            
-            // Then
-            XCTAssertNotNil(newsList, "load headlines api returns no data")
-            XCTAssertEqual(newsList?.status, "error")
-            XCTAssertEqual(newsList?.code, "apiKeyMissing")
-            XCTAssertEqual(newsList?.message, "Your API key is missing. Append this to the URL with the apiKey param, or use the x-api-key HTTP header.")
-        }
-        
-        wait(for: [expectation], timeout: 20)
-    }
-    
-    // FIXME: This test should be move to integration tests later
-    func testLoadHeaderlinesFailsIfCriteriasMissing() {
-        
-        let expectation = self.expectation(description: "Expect load header lines has data")
-        
-        // Given
-        let parameters = EverythingRequestParameters(apiKey: NewsClient.apiKey)
-        
-        // When
-        newsClient.loadEverything(params: parameters) { newsList in
-            expectation.fulfill()
-            
-            // {"status":"error","code":"parametersMissing","message":"Required parameters are missing. Please set any of the following parameters and try again: sources, q, language, country, category."}
-            
-            // Then
-            XCTAssertNotNil(newsList, "load headlines api returns no data")
-            XCTAssertEqual(newsList?.status, "error")
-            XCTAssertEqual(newsList?.code, "parametersMissing")
-            XCTAssertEqual(newsList?.message, "Required parameters are missing. Please set any of the following parameters and try again: sources, q, language, country, category.")
-        }
-        
-        wait(for: [expectation], timeout: 20)
-    }
-    
-    // FIXME: This test should be move to integration tests later
     func testLoadHeaderlinesSuccess() {
         
         let expectation = self.expectation(description: "Expect load header lines has data")
