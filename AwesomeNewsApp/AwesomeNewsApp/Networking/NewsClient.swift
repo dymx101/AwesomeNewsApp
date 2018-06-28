@@ -42,12 +42,16 @@ class NewsClient {
         return URL(string: urlString)
     }
     
-    func loadEverything(params: EverythingRequestParameters, completion:@escaping (NewsList?)->Void) {
+    func loadEverything(params: EverythingRequestParameters, completion:@escaping (NewsList?, Error?)->Void) {
         
         guard let url = getEverythingURL(parameters: params) else {return}
         
         Alamofire.request(url).responseObject { (respObject: DataResponse<NewsList>) in
-            completion(respObject.result.value)
+            if let error = respObject.result.error {
+                completion(nil, error)
+            } else {
+                completion(respObject.result.value, nil)
+            }
         }
     }
 }

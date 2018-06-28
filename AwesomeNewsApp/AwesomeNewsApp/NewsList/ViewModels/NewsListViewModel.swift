@@ -47,7 +47,7 @@ class NewsListViewModel {
             return
         }
         
-        newsClient.loadEverything(params: paramters) { [weak self] (newsList) in
+        newsClient.loadEverything(params: paramters) { [weak self] (newsList, error) in
             
             guard let _ = newsList else {
                 // No data from the server, might be some error, let's load from firebase
@@ -59,6 +59,14 @@ class NewsListViewModel {
                         completion(newsListCached)
                     })
                 })
+                self?.isRequestingVar.value = false
+                return
+            }
+            
+            if let error = error as NSError? {
+                UIApplication.shared.keyWindow?.rootViewController?.view
+                    .makeToast(error.localizedDescription)
+                completion(nil)
                 self?.isRequestingVar.value = false
                 return
             }

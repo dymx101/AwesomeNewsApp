@@ -46,10 +46,11 @@ class NewsClientTests: XCTestCase {
         let parameters = EverythingRequestParameters(language:"en", sources:"cnn", apiKey: NewsClient.apiKey)
         
         // When
-        newsClient.loadEverything(params: parameters) { newsList in
+        newsClient.loadEverything(params: parameters) { newsList, error in
             expectation.fulfill()
             
             // Then
+            XCTAssertNil(error, "should has no error")
             XCTAssertNotNil(newsList, "load headlines api returns no data")
             XCTAssertEqual(newsList?.status, "ok")
             XCTAssertEqual(newsList?.articles?.count, EverythingRequestParameters.Constants.defaultPageSize)

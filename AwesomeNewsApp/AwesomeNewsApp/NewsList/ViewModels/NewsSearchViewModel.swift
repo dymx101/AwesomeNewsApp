@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Toast_Swift
 
 class NewsSearchViewModel {
     private var newsClient: NewsClient!
@@ -48,7 +49,16 @@ class NewsSearchViewModel {
                 return
         }
         
-        newsClient.loadEverything(params: paramters) { [weak self] (newsList) in
+        newsClient.loadEverything(params: paramters) { [weak self] (newsList, error) in
+            
+            if let error = error as NSError? {
+            UIApplication.shared.keyWindow?.rootViewController?.view
+                .makeToast(error.localizedDescription)
+                print("loading everything error: \(error.localizedDescription)")
+                completion(nil)
+                self?.isRequestingVar.value = false
+                return
+            }
             
             if (self?.paramters.page == EverythingRequestParameters.Constants.firstPageIndex
                 || self?.newsList  == nil) {
