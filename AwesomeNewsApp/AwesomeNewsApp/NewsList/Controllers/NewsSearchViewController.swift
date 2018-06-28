@@ -11,6 +11,7 @@ import NVActivityIndicatorView
 import RxSwift
 import RxCocoa
 
+/// View controller for news search
 class NewsSearchViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!

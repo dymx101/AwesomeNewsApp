@@ -9,6 +9,7 @@
 import Foundation
 import ObjectMapper
 
+/// Model of a news item (article)
 class NewsItem: Mappable {
     
     enum Keys: String {

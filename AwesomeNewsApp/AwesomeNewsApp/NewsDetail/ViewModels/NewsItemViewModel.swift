@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 
+/// The view model class for news item cell
 class NewsItemViewModel {
     private var title = Variable(String(""))
     private var desc = Variable(String(""))

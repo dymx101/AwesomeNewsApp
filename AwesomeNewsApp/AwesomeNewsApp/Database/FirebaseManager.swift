@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 
+/// An abstract interface of database manager
 protocol DatabaseManager {
     func saveHtml(_ html: String, forUrl url:String)
     func loadHtml(forUrl url: String, completion: @escaping (String) -> Void)
@@ -16,6 +17,7 @@ protocol DatabaseManager {
     func loadNewsList(completion:@escaping (NewsList?)->Void)
 }
 
+/// Class for firebase data managerment
 class FirebaseManager: DatabaseManager {
     
     enum Tables: String {

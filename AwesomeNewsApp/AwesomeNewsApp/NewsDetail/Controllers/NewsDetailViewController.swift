@@ -11,6 +11,9 @@ import WebKit
 import RxSwift
 import SnapKit
 
+/// View Controller class for news detail.
+/// Since the 'newsapi' only provide a url for the news,
+/// the main component of this class is a webview.
 class NewsDetailViewController: UIViewController {
     
     struct Constants {

@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import AlamofireObjectMapper
 
+/// The network client for 'newsapi'
 class NewsClient {
     
     enum Endpoints: String {

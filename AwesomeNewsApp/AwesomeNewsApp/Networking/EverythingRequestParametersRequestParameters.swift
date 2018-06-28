@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A model class for 'everthing' endpoint request parameters
 class EverythingRequestParameters {
     
     enum Languages: String {

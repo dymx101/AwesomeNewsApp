@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// View model class for news detail.
 class NewsDetailViewModel {
     
     var url: String?
@@ -21,6 +22,7 @@ class NewsDetailViewModel {
        dbManager = FirebaseManager()
     }
     
+    /// Save html of the news detail url to the database for offline reading
     func saveHtml(_ html: String?) {
         
         guard !loadedFromCache, let html = html, let url = url else {
@@ -30,6 +32,7 @@ class NewsDetailViewModel {
         dbManager.saveHtml(html, forUrl: url)
     }
     
+    /// load html of the news detail url from the database for offline reading
     func loadCachedHtml(completion: @escaping (String) -> Void) {
         if let url = url {
             dbManager.loadHtml(forUrl: url) { [weak self] (htmlString) in

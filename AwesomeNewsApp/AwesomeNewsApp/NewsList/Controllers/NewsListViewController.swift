@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+/// View controller for news list display
 class NewsListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!

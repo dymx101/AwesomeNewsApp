@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Toast_Swift
 
+/// view model class for news search
 class NewsSearchViewModel {
     private var newsClient: NewsClient!
     private var paramters: EverythingRequestParameters!
